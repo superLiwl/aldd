@@ -1,0 +1,16 @@
+server:
+  port: 9001
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl.defaultZone: http://localhost:${server.port}/eureka/
+  instance:
+    preferIpAddress: true
+management:
+  security:
+    enabled: false
+endpoints:
+  health:
+    sensitive: false

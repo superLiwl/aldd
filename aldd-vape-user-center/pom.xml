@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>aldd-vape-user-center</artifactId>
+	<packaging>pom</packaging>
+
+	<name>aldd-vape-user-center</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<parent>
+		<groupId>cn.aldd.vape</groupId>
+		<artifactId>aldd-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>cn.aldd.vape</groupId>
+			<artifactId>aldd-vape-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+
+	<modules>
+		<module>aldd-vape-user-center-client</module>
+		<module>aldd-vape-user-center-micro</module>
+		<module>aldd-vape-user-center-vo</module>
+		<module>aldd-vape-user-center-open</module>
+	</modules>
+</project>

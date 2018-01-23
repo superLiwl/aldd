@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.site//DTD Mapper 3.0//EN" "http://mybatis.site/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao">
+
+	<sql id="select_columns">
+		resource.id id,
+		resource.login_name loginName,
+		resource.password password,
+		resource.create_time createTime,
+		resource.update_time updateTime 
+	</sql>
+
+	<select id="checkLogin" resultType="java.lang.Boolean" parameterType="java.lang.String">
+		SELECT EXISTS(SELECT 1 FROM user WHERE login_name=#{loginName} and password=#{password})
+	</select>
+
+	<select id="findUserById" resultType="cn.aldd.vape.user.micro.vo.UserVo" parameterType="java.lang.String">
+		SELECT
+		<include refid="select_columns" />
+		FROM user resource
+	</select>
+
+</mapper>
