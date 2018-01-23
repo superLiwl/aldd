@@ -2,12 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.site//DTD Mapper 3.0//EN" "http://mybatis.site/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao">
 
-	<sql id="select_columns">
-		resource.id id,
-		resource.login_name loginName,
-		resource.password password,
-		resource.create_time createTime,
-		resource.update_time updateTime 
+	<!-- 查询字段公共sql -->
+	<sql id="selectAllColumns">
+		<![CDATA[
+		SELECT
+			record.id as id, 
+			record.create_time as createTime, 
+			record.login_name as loginName, 
+			record.password as password, 
+			record.update_time as updateTime, 
+			record.address as address, 
+			record.age as age, 
+			record.code as code, 
+			record.equipment as equipment, 
+			record.gender as gender, 
+			record.head_portrait_img as headPortraitImg, 
+			record.hobby as hobby, 
+			record.nick_name as nickName, 
+			record.ration as ration, 
+			record.signature as signature, 
+			record.skill as skill 
+			FROM user record 
+		]]>
 	</sql>
 
 	<select id="checkLogin" resultType="java.lang.Boolean" parameterType="java.lang.String">
@@ -15,9 +31,61 @@
 	</select>
 
 	<select id="findUserById" resultType="cn.aldd.vape.user.micro.vo.UserVo" parameterType="java.lang.String">
-		SELECT
-		<include refid="select_columns" />
-		FROM user resource
+		<include refid="selectAllColumns" />
+		where record.id = #{id}
 	</select>
+	
+	<select id="findUserList" resultType="cn.aldd.vape.user.micro.vo.UserVo" >
+		<include refid="selectAllColumns"/>
+		<include refid="where_fragement" />
+	</select>
+	
+	<sql id="where_fragement">
+		where 1=1
+		<if test="entity!=null">
+				<if test = "entity.id != null and entity.id != ''">
+					<![CDATA[ and record.id  = #{entity.id} ]]>
+				</if>
+				<if test = "entity.loginName != null and entity.loginName != ''">
+					<![CDATA[ and record.login_name  = #{entity.loginName} ]]>
+				</if>
+				<if test = "entity.password != null and entity.password != ''">
+					<![CDATA[ and record.password  = #{entity.password} ]]>
+				</if>
+				<if test = "entity.address != null and entity.address != ''">
+					<![CDATA[ and record.address  = #{entity.address} ]]>
+				</if>
+				<if test = "entity.age != null and entity.age != ''">
+					<![CDATA[ and record.age  = #{entity.age} ]]>
+				</if>
+				<if test = "entity.code != null and entity.code != ''">
+					<![CDATA[ and record.code  = #{entity.code} ]]>
+				</if>
+				<if test = "entity.equipment != null and entity.equipment != ''">
+					<![CDATA[ and record.equipment  = #{entity.equipment} ]]>
+				</if>
+				<if test = "entity.gender != null and entity.gender != ''">
+					<![CDATA[ and record.gender  = #{entity.gender} ]]>
+				</if>
+				<if test = "entity.headPortraitImg != null and entity.headPortraitImg != ''">
+					<![CDATA[ and record.head_portrait_img  = #{entity.headPortraitImg} ]]>
+				</if>
+				<if test = "entity.hobby != null and entity.hobby != ''">
+					<![CDATA[ and record.hobby  = #{entity.hobby} ]]>
+				</if>
+				<if test = "entity.nickName != null and entity.nickName != ''">
+					<![CDATA[ and record.nick_name  = #{entity.nickName} ]]>
+				</if>
+				<if test = "entity.ration != null and entity.ration != ''">
+					<![CDATA[ and record.ration  = #{entity.ration} ]]>
+				</if>
+				<if test = "entity.signature != null and entity.signature != ''">
+					<![CDATA[ and record.signature  = #{entity.signature} ]]>
+				</if>
+				<if test = "entity.skill != null and entity.skill != ''">
+					<![CDATA[ and record.skill  = #{entity.skill} ]]>
+				</if>
+		</if>
+	</sql>
 
 </mapper>
