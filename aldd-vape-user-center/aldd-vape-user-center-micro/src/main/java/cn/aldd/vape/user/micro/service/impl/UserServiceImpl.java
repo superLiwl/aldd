@@ -14,7 +14,7 @@ import cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao;
 import cn.aldd.vape.user.micro.service.UserService;
 import cn.aldd.vape.user.micro.vo.UserVo;
 
-@Service("messageService")
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
 		PageHelper.startPage(userVo.getPageNum(), userVo.getPageSize());
 		List<UserVo> result = userDao.findUserList(userVo);
 		return result;
+	}
+
+	@Override
+	public void deleteUserById(String id) {
+		userRepository.delete(id);
 	}
 
 }

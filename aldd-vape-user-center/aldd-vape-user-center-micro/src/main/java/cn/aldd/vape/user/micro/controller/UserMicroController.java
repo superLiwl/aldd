@@ -22,18 +22,16 @@ public class UserMicroController {
 	public Boolean checkLogin(@PathVariable("loginName") String loginName, @PathVariable("password") String password) {
 		return userService.checkLogin(loginName, password);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/user/micro/addUser")
 	public User addUser(@RequestBody User user) {
 		return userService.addUser(user);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/user/micro/updateUser")
 	public User updateUser(@RequestBody User user) {
 		return userService.updateUser(user);
 	}
-	
-	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/user/micro/{id}")
 	public UserVo findUserById(@PathVariable("id") String id) {
@@ -43,6 +41,11 @@ public class UserMicroController {
 	@RequestMapping(method = RequestMethod.POST, value = "/user/micro/findUserList")
 	public List<UserVo> findUserList(@RequestBody UserVo userVo) {
 		return userService.findUserList(userVo);
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE, value = "/user/micro/{id}")
+	public void deleteUserById(@PathVariable("id") String id) {
+		userService.deleteUserById(id);
 	}
 
 }

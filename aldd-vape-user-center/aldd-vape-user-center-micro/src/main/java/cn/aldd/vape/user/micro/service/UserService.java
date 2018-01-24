@@ -17,4 +17,6 @@ public interface UserService {
 
 	List<UserVo> findUserList(UserVo userVo);
 
+	void deleteUserById(String id);
+
 }
