@@ -12,10 +12,10 @@ public class ${className}Vo extends Page {
 
 	private static final long serialVersionUID = 1L;
 	
-	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	<#list table.columns as column>
-	@ApiModelProperty(value = "${column.label}")
+	<#if column.type != "String">@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")<#else>@ApiModelProperty(value = "${column.label}")</#if>
 	private ${column.type} ${column.name};
+	
 </#list>
 
 // setter and getter

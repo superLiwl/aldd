@@ -24,13 +24,14 @@ public class ${className} implements Serializable {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	@Column(unique = true, nullable = false, length = 36, name = "id")
 	private String id;
-
 <#list table.columns as column>
+	<#if column.dbName != "id">
 	/**
 	 * ${column.label}
 	 */
-	@Column(nullable = false, length = ${column.length}, name = "${column.dbName}")
+	@Column(nullable = false,<#if column.type == "String">length = ${column.length},</#if> name = "${column.dbName}")
 	private ${column.type} ${column.name};
+	</#if>
 </#list>
 
 // setter and getter

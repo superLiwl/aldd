@@ -146,7 +146,7 @@ public class Generator {
 	        cfg.setClassForTemplateLoading(this.getClass(), "/templates" + parentDir);
 	        
 	        Template template = cfg.getTemplate(f.getName());
-	        template.setEncoding("UTF-8");  
+	        template.setEncoding("UTF-8");
 	        
 	        String parentFileDir = FileHelper.genFileDir(parentDir, root);
 	        parentFileDir = parentFileDir.replace(".", "/");
@@ -162,7 +162,16 @@ public class Generator {
 	
 	public static void main(String[] args) throws Exception{
 		Generator g = new Generator();
-		g.gen("dynamic");
+		List<String> list = new ArrayList<>();
+		list.add("dynamic");
+		list.add("dynamic_comment");
+		list.add("dynamic_fabulous");
+		list.add("dynamic_reward");
+		list.add("equipment");
+		list.add("user");
+		for (String table : list) {
+			g.gen(table);
+		}
 		System.out.println("模版文件生成完毕……");
 	}
 }
