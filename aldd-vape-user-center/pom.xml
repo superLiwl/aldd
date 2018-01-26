@@ -26,11 +26,7 @@
 		</dependency>
 	</dependencies>
 
-
 	<modules>
-		<module>aldd-vape-user-center-client</module>
 		<module>aldd-vape-user-center-micro</module>
-		<module>aldd-vape-user-center-vo</module>
-		<module>aldd-vape-user-center-open</module>
 	</modules>
 </project>
