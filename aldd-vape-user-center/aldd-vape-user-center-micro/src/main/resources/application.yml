@@ -44,3 +44,8 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+ftp:
+    host: 47.95.2.132
+    port: 21
+    user: ftpUser
+    pwd: qwer1234   
