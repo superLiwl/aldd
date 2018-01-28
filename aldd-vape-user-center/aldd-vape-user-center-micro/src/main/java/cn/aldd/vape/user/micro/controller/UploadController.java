@@ -18,11 +18,8 @@ public class UploadController {
 	@Autowired
 	FtpConfig ftpConfig;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/fileUpload/{type}")
-	public String uploadFile(@RequestPart("file") MultipartFile file, @PathVariable("type") String type)
-			throws IOException {
-		String result = FtpUtil.uploadFile(ftpConfig.getHost(), ftpConfig.getPort(), ftpConfig.getUser(),
-				ftpConfig.getPwd(), type, file.getOriginalFilename(), file.getInputStream());
-		return result;
+	@RequestMapping(method = RequestMethod.POST, value = "/fileUpload/{userId}")
+	public String uploadFile(@RequestPart("file") MultipartFile file, @PathVariable("userId") String userId) throws IOException{
+		return FtpUtil.uploadFile(file.getInputStream(), file.getOriginalFilename(), userId);
 	}
 }
