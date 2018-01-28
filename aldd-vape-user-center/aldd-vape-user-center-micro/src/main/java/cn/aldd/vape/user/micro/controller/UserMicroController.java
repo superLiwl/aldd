@@ -18,11 +18,6 @@ public class UserMicroController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/user/micro/checkLogin/{loginName}/{password}")
-	public Boolean checkLogin(@PathVariable("loginName") String loginName, @PathVariable("password") String password) {
-		return userService.checkLogin(loginName, password);
-	}
-
 	@RequestMapping(method = RequestMethod.POST, value = "/user/micro/addUser")
 	public User addUser(@RequestBody User user) {
 		return userService.addUser(user);

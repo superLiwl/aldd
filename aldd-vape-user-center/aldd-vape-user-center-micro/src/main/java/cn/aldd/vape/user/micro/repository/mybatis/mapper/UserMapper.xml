@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.site//DTD Mapper 3.0//EN" "http://mybatis.site/dtd/mybatis-3-mapper.dtd">
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao">
 	
-	<select id="checkLogin" resultType="java.lang.Boolean" parameterType="java.lang.String">
-		SELECT EXISTS(SELECT 1 FROM user WHERE login_name=#{loginName} and password=#{password})
-	</select>
-
 	<select id="findUserById" resultType="cn.aldd.vape.user.micro.vo.UserVo" parameterType="java.lang.String">
 		<include refid="selectAllColumns" />
 		where record.id = #{id}
@@ -20,37 +18,34 @@
 	<sql id="selectAllColumns">
 		<![CDATA[
 		SELECT
-			record.id as id, 
-			record.create_time as createTime, 
-			record.login_name as loginName, 
-			record.password as password, 
-			record.update_time as updateTime, 
-			record.address as address, 
-			record.age as age, 
-			record.code as code, 
-			record.equipment as equipment, 
-			record.gender as gender, 
-			record.head_portrait_img as headPortraitImg, 
-			record.hobby as hobby, 
-			record.nick_name as nickName, 
-			record.ration as ration, 
-			record.signature as signature, 
-			record.skill as skill 
-			FROM user record 
+			 id as id, 
+			 open_id as openId, 
+			 address as address, 
+			 age as age, 
+			 code as code, 
+			 gender as gender, 
+			 head_portrait_img as headPortraitImg, 
+			 hobby as hobby, 
+			 login_name as loginName, 
+			 nick_name as nickName, 
+			 password as password, 
+			 ration as ration, 
+			 signature as signature, 
+			 skill as skill, 
+			 create_time as createTime, 
+			 update_time as updateTime 
+			FROM user record
 		]]>
 	</sql>
-	
+
 	<sql id="where_fragement">
 		where 1=1
 		<if test="entity!=null">
 				<if test = "entity.id != null and entity.id != ''">
 					<![CDATA[ and record.id  = #{entity.id} ]]>
 				</if>
-				<if test = "entity.loginName != null and entity.loginName != ''">
-					<![CDATA[ and record.login_name  = #{entity.loginName} ]]>
-				</if>
-				<if test = "entity.password != null and entity.password != ''">
-					<![CDATA[ and record.password  = #{entity.password} ]]>
+				<if test = "entity.openId != null and entity.openId != ''">
+					<![CDATA[ and record.open_id  = #{entity.openId} ]]>
 				</if>
 				<if test = "entity.address != null and entity.address != ''">
 					<![CDATA[ and record.address  = #{entity.address} ]]>
@@ -61,9 +56,6 @@
 				<if test = "entity.code != null and entity.code != ''">
 					<![CDATA[ and record.code  = #{entity.code} ]]>
 				</if>
-				<if test = "entity.equipment != null and entity.equipment != ''">
-					<![CDATA[ and record.equipment  = #{entity.equipment} ]]>
-				</if>
 				<if test = "entity.gender != null and entity.gender != ''">
 					<![CDATA[ and record.gender  = #{entity.gender} ]]>
 				</if>
@@ -73,8 +65,14 @@
 				<if test = "entity.hobby != null and entity.hobby != ''">
 					<![CDATA[ and record.hobby  = #{entity.hobby} ]]>
 				</if>
+				<if test = "entity.loginName != null and entity.loginName != ''">
+					<![CDATA[ and record.login_name  = #{entity.loginName} ]]>
+				</if>
 				<if test = "entity.nickName != null and entity.nickName != ''">
 					<![CDATA[ and record.nick_name  = #{entity.nickName} ]]>
+				</if>
+				<if test = "entity.password != null and entity.password != ''">
+					<![CDATA[ and record.password  = #{entity.password} ]]>
 				</if>
 				<if test = "entity.ration != null and entity.ration != ''">
 					<![CDATA[ and record.ration  = #{entity.ration} ]]>
@@ -84,6 +82,12 @@
 				</if>
 				<if test = "entity.skill != null and entity.skill != ''">
 					<![CDATA[ and record.skill  = #{entity.skill} ]]>
+				</if>
+				<if test = "entity.createTime != null and entity.createTime != ''">
+					<![CDATA[ and record.create_time  = #{entity.createTime} ]]>
+				</if>
+				<if test = "entity.updateTime != null and entity.updateTime != ''">
+					<![CDATA[ and record.update_time  = #{entity.updateTime} ]]>
 				</if>
 		</if>
 	</sql>

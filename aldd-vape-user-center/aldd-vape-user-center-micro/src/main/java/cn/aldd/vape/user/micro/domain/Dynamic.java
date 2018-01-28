@@ -25,30 +25,25 @@ public class Dynamic implements Serializable {
 	@Column(unique = true, nullable = false, length = 36, name = "id")
 	private String id;
 	/**
-	 * 创建人
+	 * 发表地址
 	 */
-	@Column(nullable = false, length = 36, name = "user_id")
-	private String userId;
+	@Column(nullable = false,length = 255, name = "address")
+	private String address;
 	/**
 	 * 动态内容
 	 */
-	@Column(nullable = false, length = 500, name = "content")
+	@Column(nullable = false,length = 255, name = "content")
 	private String content;
 	/**
-	 * 发表地址
+	 * 创建人
 	 */
-	@Column(nullable = false, length = 100, name = "address")
-	private String address;
+	@Column(nullable = false,length = 36, name = "create_user_id")
+	private String createUserId;
 	/**
 	 * 创建时间
 	 */
-	@Column(nullable = false, length = 19, name = "create_time")
+	@Column(nullable = false, name = "create_time")
 	private java.util.Date createTime;
-	/**
-	 * 更新时间
-	 */
-	@Column(nullable = false, length = 19, name = "update_time")
-	private java.util.Date updateTime;
 
 // setter and getter
 	public String getId(){
@@ -58,12 +53,12 @@ public class Dynamic implements Serializable {
 	public void setId(String id){
 		this.id = id;
 	}
-	public String getUserId(){
-		return userId;
+	public String getAddress(){
+		return address;
 	}
 	
-	public void setUserId(String userId){
-		this.userId = userId;
+	public void setAddress(String address){
+		this.address = address;
 	}
 	public String getContent(){
 		return content;
@@ -72,12 +67,12 @@ public class Dynamic implements Serializable {
 	public void setContent(String content){
 		this.content = content;
 	}
-	public String getAddress(){
-		return address;
+	public String getCreateUserId(){
+		return createUserId;
 	}
 	
-	public void setAddress(String address){
-		this.address = address;
+	public void setCreateUserId(String createUserId){
+		this.createUserId = createUserId;
 	}
 	public java.util.Date getCreateTime(){
 		return createTime;
@@ -85,12 +80,5 @@ public class Dynamic implements Serializable {
 	
 	public void setCreateTime(java.util.Date createTime){
 		this.createTime = createTime;
-	}
-	public java.util.Date getUpdateTime(){
-		return updateTime;
-	}
-	
-	public void setUpdateTime(java.util.Date updateTime){
-		this.updateTime = updateTime;
 	}
 }

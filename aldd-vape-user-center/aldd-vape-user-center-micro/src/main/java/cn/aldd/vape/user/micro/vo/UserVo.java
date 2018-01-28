@@ -1,194 +1,191 @@
 package cn.aldd.vape.user.micro.vo;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import cn.aldd.vape.common.Page;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "用户")
 public class UserVo extends Page {
 
 	private static final long serialVersionUID = 1L;
-
-	@ApiModelProperty(value = "id")
+	
+	
+	@ApiModelProperty(value = "主键id")
 	private String id;
-
-	@ApiModelProperty(value = "登录名")
-	private String loginName;
-
-	@ApiModelProperty(value = "密码")
-	private String password;
-
-	@ApiModelProperty(value = "创建时间")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private Date createTime;
-
-	@ApiModelProperty(value = "更新时间")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	private java.util.Date updateTime;
-
-	@ApiModelProperty(value = "头像")
-	private String headPortraitImg;
-
-	@ApiModelProperty(value = "昵称")
-	private String nickName;
-
-	@ApiModelProperty(value = "性别")
-	private String gender;
-
+	
+	
+	@ApiModelProperty(value = "")
+	private String openId;
+	
+	
 	@ApiModelProperty(value = "地址")
 	private String address;
-
-	@ApiModelProperty(value = "地址")
+	
+	
+	@ApiModelProperty(value = "年龄")
 	private String age;
-
-	@ApiModelProperty(value = "代号")
+	
+	
+	@ApiModelProperty(value = "编号")
 	private String code;
-
-	@ApiModelProperty(value = "技能")
-	private String skill;
-
+	
+	
+	@ApiModelProperty(value = "性别")
+	private String gender;
+	
+	
+	@ApiModelProperty(value = "头像")
+	private String headPortraitImg;
+	
+	
 	@ApiModelProperty(value = "爱好")
 	private String hobby;
-
-	@ApiModelProperty(value = "个人签名")
-	private String signature;
-
-	@ApiModelProperty(value = "我的口粮")
+	
+	
+	@ApiModelProperty(value = "登录名")
+	private String loginName;
+	
+	
+	@ApiModelProperty(value = "昵称")
+	private String nickName;
+	
+	
+	@ApiModelProperty(value = "密码")
+	private String password;
+	
+	
+	@ApiModelProperty(value = "口粮")
 	private String ration;
+	
+	
+	@ApiModelProperty(value = "标签")
+	private String signature;
+	
+	
+	@ApiModelProperty(value = "技能")
+	private String skill;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@ApiModelProperty(value = "创建时间")
+	private java.util.Date createTime;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@ApiModelProperty(value = "更新时间")
+	private java.util.Date updateTime;
+	
 
-	@ApiModelProperty(value = "我的设备")
-	private String equipment;
-
-	public String getId() {
+// setter and getter
+	public String getId(){
 		return id;
 	}
-
-	public void setId(String id) {
+	
+	public void setId(String id){
 		this.id = id;
 	}
-
-	public String getLoginName() {
-		return loginName;
+	public String getOpenId(){
+		return openId;
 	}
-
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
+	
+	public void setOpenId(String openId){
+		this.openId = openId;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public java.util.Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(java.util.Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getHeadPortraitImg() {
-		return headPortraitImg;
-	}
-
-	public void setHeadPortraitImg(String headPortraitImg) {
-		this.headPortraitImg = headPortraitImg;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getAddress() {
+	public String getAddress(){
 		return address;
 	}
-
-	public void setAddress(String address) {
+	
+	public void setAddress(String address){
 		this.address = address;
 	}
-
-	public String getAge() {
+	public String getAge(){
 		return age;
 	}
-
-	public void setAge(String age) {
+	
+	public void setAge(String age){
 		this.age = age;
 	}
-
-	public String getCode() {
+	public String getCode(){
 		return code;
 	}
-
-	public void setCode(String code) {
+	
+	public void setCode(String code){
 		this.code = code;
 	}
-
-	public String getSkill() {
-		return skill;
+	public String getGender(){
+		return gender;
 	}
-
-	public void setSkill(String skill) {
-		this.skill = skill;
+	
+	public void setGender(String gender){
+		this.gender = gender;
 	}
-
-	public String getHobby() {
+	public String getHeadPortraitImg(){
+		return headPortraitImg;
+	}
+	
+	public void setHeadPortraitImg(String headPortraitImg){
+		this.headPortraitImg = headPortraitImg;
+	}
+	public String getHobby(){
 		return hobby;
 	}
-
-	public void setHobby(String hobby) {
+	
+	public void setHobby(String hobby){
 		this.hobby = hobby;
 	}
-
-	public String getSignature() {
-		return signature;
+	public String getLoginName(){
+		return loginName;
 	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
+	
+	public void setLoginName(String loginName){
+		this.loginName = loginName;
 	}
-
-	public String getRation() {
+	public String getNickName(){
+		return nickName;
+	}
+	
+	public void setNickName(String nickName){
+		this.nickName = nickName;
+	}
+	public String getPassword(){
+		return password;
+	}
+	
+	public void setPassword(String password){
+		this.password = password;
+	}
+	public String getRation(){
 		return ration;
 	}
-
-	public void setRation(String ration) {
+	
+	public void setRation(String ration){
 		this.ration = ration;
 	}
-
-	public String getEquipment() {
-		return equipment;
+	public String getSignature(){
+		return signature;
 	}
-
-	public void setEquipment(String equipment) {
-		this.equipment = equipment;
+	
+	public void setSignature(String signature){
+		this.signature = signature;
 	}
-
+	public String getSkill(){
+		return skill;
+	}
+	
+	public void setSkill(String skill){
+		this.skill = skill;
+	}
+	public java.util.Date getCreateTime(){
+		return createTime;
+	}
+	
+	public void setCreateTime(java.util.Date createTime){
+		this.createTime = createTime;
+	}
+	public java.util.Date getUpdateTime(){
+		return updateTime;
+	}
+	
+	public void setUpdateTime(java.util.Date updateTime){
+		this.updateTime = updateTime;
+	}
+	
 }

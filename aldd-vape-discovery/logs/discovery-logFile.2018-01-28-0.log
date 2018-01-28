@@ -1,0 +1,4 @@
+09:26:37.986 [main] INFO  cn.aldd.vape.DiscoveryApplication ? - No active profile set, falling back to default profiles: default
+09:26:46.209 [main] INFO  cn.aldd.vape.DiscoveryApplication ? - Started DiscoveryApplication in 10.639 seconds (JVM running for 12.083)
+21:16:57.802 [main] INFO  cn.aldd.vape.DiscoveryApplication ? - No active profile set, falling back to default profiles: default
+21:17:05.579 [main] INFO  cn.aldd.vape.DiscoveryApplication ? - Started DiscoveryApplication in 9.479 seconds (JVM running for 10.645)

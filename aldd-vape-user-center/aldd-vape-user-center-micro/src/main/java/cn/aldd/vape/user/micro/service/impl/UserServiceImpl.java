@@ -23,11 +23,6 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public Boolean checkLogin(String loginName, String password) {
-		return userDao.checkLogin(loginName, password);
-	}
-
-	@Override
 	public User addUser(User user) {
 		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());

@@ -25,14 +25,12 @@ public class DynamicServiceImpl implements DynamicService {
 	@Override
 	public Dynamic addDynamic(Dynamic dynamic) {
 		dynamic.setCreateTime(new Date());
-		dynamic.setUpdateTime(new Date());
 		dynamic = dynamicRepository.save(dynamic);
 		return dynamic;
 	}
 
 	@Override
 	public Dynamic updateDynamic(Dynamic dynamic) {
-		dynamic.setUpdateTime(new Date());
 		dynamic = dynamicRepository.save(dynamic);
 		return dynamic;
 	}

@@ -1,11 +1,8 @@
 package ${package}.vo;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import cn.aldd.vape.common.Page;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 public class ${className}Vo extends Page {
@@ -13,7 +10,8 @@ public class ${className}Vo extends Page {
 	private static final long serialVersionUID = 1L;
 	
 	<#list table.columns as column>
-	<#if column.type != "String">@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")<#else>@ApiModelProperty(value = "${column.label}")</#if>
+	<#if column.type != "String">@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")</#if>
+	@ApiModelProperty(value = "${column.label}")
 	private ${column.type} ${column.name};
 	
 </#list>

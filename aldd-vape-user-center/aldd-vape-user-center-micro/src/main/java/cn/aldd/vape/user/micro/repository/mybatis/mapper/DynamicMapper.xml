@@ -19,11 +19,10 @@
 		<![CDATA[
 		SELECT
 			 id as id, 
-			 user_id as userId, 
-			 content as content, 
 			 address as address, 
-			 create_time as createTime, 
-			 update_time as updateTime 
+			 content as content, 
+			 create_user_id as createUserId, 
+			 create_time as createTime 
 			FROM dynamic record
 		]]>
 	</sql>
@@ -34,20 +33,17 @@
 				<if test = "entity.id != null and entity.id != ''">
 					<![CDATA[ and record.id  = #{entity.id} ]]>
 				</if>
-				<if test = "entity.userId != null and entity.userId != ''">
-					<![CDATA[ and record.user_id  = #{entity.userId} ]]>
+				<if test = "entity.address != null and entity.address != ''">
+					<![CDATA[ and record.address  = #{entity.address} ]]>
 				</if>
 				<if test = "entity.content != null and entity.content != ''">
 					<![CDATA[ and record.content  = #{entity.content} ]]>
 				</if>
-				<if test = "entity.address != null and entity.address != ''">
-					<![CDATA[ and record.address  = #{entity.address} ]]>
+				<if test = "entity.createUserId != null and entity.createUserId != ''">
+					<![CDATA[ and record.create_user_id  = #{entity.createUserId} ]]>
 				</if>
 				<if test = "entity.createTime != null and entity.createTime != ''">
 					<![CDATA[ and record.create_time  = #{entity.createTime} ]]>
-				</if>
-				<if test = "entity.updateTime != null and entity.updateTime != ''">
-					<![CDATA[ and record.update_time  = #{entity.updateTime} ]]>
 				</if>
 		</if>
 	</sql>
