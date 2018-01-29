@@ -13,32 +13,33 @@ import ${package}.service.${className}Service;
 import ${package}.vo.${className}Vo;
 
 @RestController
+@RequestMapping(value = "/${classNameLower}/micro")
 public class ${className}MicroController {
 	@Autowired
 	private ${className}Service ${classNameLower}Service;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/add")
+	@RequestMapping(method = RequestMethod.POST, value = "/add")
 	public DataMessage add${className}(@RequestBody ${className} ${classNameLower}) {
 		return DataMessage.createSuccessMsg(${classNameLower}Service.add${className}(${classNameLower}), "创建成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/update")
+	@RequestMapping(method = RequestMethod.POST, value = "/update")
 	public DataMessage update${className}(@RequestBody ${className} ${classNameLower}) {
 		return DataMessage.createSuccessMsg(${classNameLower}Service.update${className}(${classNameLower}), "更新成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/${classNameLower}/micro/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public DataMessage find${className}ById(@PathVariable("id") String id) {
 		return DataMessage.createSuccessMsg(${classNameLower}Service.find${className}ById(id), "查询成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/{pageNum}/{pageSize}")
+	@RequestMapping(method = RequestMethod.POST, value = "/{pageNum}/{pageSize}")
 	public DataMessage find${className}List(@RequestBody ${className}Vo ${classNameLower}Vo, @PathVariable("pageNum") Integer pageNum,
 			@PathVariable("pageSize") Integer pageSize) {
 		return DataMessage.createSuccessMsg(${classNameLower}Service.find${className}List(${classNameLower}Vo, pageNum, pageSize), "查询成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/${classNameLower}/micro/{id}")
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
 	public DataMessage delete${className}ById(@PathVariable("id") String id) {
 		${classNameLower}Service.delete${className}ById(id);
 		return DataMessage.createSuccessMsg(true, "删除成功", "");
