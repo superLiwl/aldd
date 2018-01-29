@@ -13,6 +13,7 @@ import cn.aldd.vape.user.micro.repository.jpa.UserRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao;
 import cn.aldd.vape.user.micro.service.UserService;
 import cn.aldd.vape.user.micro.vo.UserVo;
+import cn.aldd.vape.util.MD5;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -26,6 +27,8 @@ public class UserServiceImpl implements UserService {
 	public User addUser(User user) {
 		user.setCreateTime(new Date());
 		user.setUpdateTime(new Date());
+		MD5 md5 = new MD5();
+		user.setPassword(md5.getMD5ofStr(user.getPassword()));
 		user = userRepository.save(user);
 		return user;
 	}
@@ -33,7 +36,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User updateUser(User user) {
 		User oldUSser = userRepository.findOne(user.getId());
-		user.setCreateTime(oldUSser.getCreateTime());
+		user.setCreateTime(oldUSser.getCreateTime());// 创建时间不修改
+		user.setLoginName(oldUSser.getLoginName());// 登录名不修改
+		user.setPassword(oldUSser.getPassword());// 密码不修改
 		user.setUpdateTime(new Date());
 		user = userRepository.save(user);
 		return user;
@@ -59,6 +64,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUserById(String id) {
 		userRepository.delete(id);
+	}
+
+	@Override
+	public UserVo login(String loginName, String password) {
+		MD5 md5 = new MD5();
+		return userDao.login(loginName, md5.getMD5ofStr(password));
 	}
 
 }

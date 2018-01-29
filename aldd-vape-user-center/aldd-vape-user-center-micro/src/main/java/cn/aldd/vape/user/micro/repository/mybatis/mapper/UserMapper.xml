@@ -4,9 +4,14 @@
 
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao">
 	
+	<select id="login" resultType="cn.aldd.vape.user.micro.vo.UserVo" parameterType="java.lang.String">
+		<include refid="selectAllColumns" />
+		where record.login_name = #{loginName} and record.password = #{password}
+	</select>
+	
 	<select id="findUserById" resultType="cn.aldd.vape.user.micro.vo.UserVo" parameterType="java.lang.String">
 		<include refid="selectAllColumns" />
-		where record.id = #{id}
+		where record.id = #{id} or record.open_id = #{id}
 	</select>
 	
 	<select id="findUserList" resultType="cn.aldd.vape.user.micro.vo.UserVo" >

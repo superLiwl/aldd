@@ -9,8 +9,6 @@ public interface DynamicService {
 
 	Dynamic addDynamic(Dynamic dynamic);
 
-	Dynamic updateDynamic(Dynamic dynamic);
-
 	DynamicVo findDynamicById(String id);
 
 	PageInfo<DynamicVo> findDynamicList(DynamicVo dynamicVo, Integer pageNum, Integer pageSize);

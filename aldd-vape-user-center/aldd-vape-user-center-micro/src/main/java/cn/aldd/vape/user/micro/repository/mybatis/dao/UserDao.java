@@ -14,4 +14,5 @@ public interface UserDao {
 
 	List<UserVo> findUserList(@Param("entity") UserVo userVo);
 
+	UserVo login(@Param("loginName") String loginName, @Param("password") String password);
 }

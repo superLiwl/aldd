@@ -23,11 +23,6 @@ public class DynamicMicroController {
 		return DataMessage.createSuccessMsg(dynamicService.addDynamic(dynamic), "创建成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/update")
-	public DataMessage updateDynamic(@RequestBody Dynamic dynamic) {
-		return DataMessage.createSuccessMsg(dynamicService.updateDynamic(dynamic), "更新成功", "");
-	}
-
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public DataMessage findDynamicById(@PathVariable("id") String id) {
 		return DataMessage.createSuccessMsg(dynamicService.findDynamicById(id), "查询成功", "");
