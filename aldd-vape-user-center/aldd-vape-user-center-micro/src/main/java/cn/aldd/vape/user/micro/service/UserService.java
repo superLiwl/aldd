@@ -1,13 +1,11 @@
 package cn.aldd.vape.user.micro.service;
 
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 import cn.aldd.vape.user.micro.domain.User;
 import cn.aldd.vape.user.micro.vo.UserVo;
 
-
 public interface UserService {
-	
 
 	User addUser(User user);
 
@@ -15,8 +13,8 @@ public interface UserService {
 
 	UserVo findUserById(String id);
 
-	List<UserVo> findUserList(UserVo userVo);
+	PageInfo<UserVo> findUserList(UserVo userVo, Integer pageNum, Integer pageSize);
 
 	void deleteUserById(String id);
-	
+
 }

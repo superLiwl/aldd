@@ -1,12 +1,12 @@
 package cn.aldd.vape.user.micro.service.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import cn.aldd.vape.user.micro.domain.User;
 import cn.aldd.vape.user.micro.repository.jpa.UserRepository;
@@ -32,6 +32,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(User user) {
+		User oldUSser = userRepository.findOne(user.getId());
+		user.setCreateTime(oldUSser.getCreateTime());
 		user.setUpdateTime(new Date());
 		user = userRepository.save(user);
 		return user;
@@ -43,9 +45,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserVo> findUserList(UserVo userVo) {
-		PageHelper.startPage(userVo.getPageNum(), userVo.getPageSize());
-		List<UserVo> result = userDao.findUserList(userVo);
+	public PageInfo<UserVo> findUserList(UserVo userVo, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		PageInfo<UserVo> result = new PageInfo<UserVo>(userDao.findUserList(userVo));
+		if (pageNum > result.getPages()) {
+			result.setList(null);
+			result.setSize(0);
+			result.setPageNum(pageNum);
+		}
 		return result;
 	}
 

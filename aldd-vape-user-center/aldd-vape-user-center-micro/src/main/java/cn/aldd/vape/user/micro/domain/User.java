@@ -25,79 +25,79 @@ public class User implements Serializable {
 	@Column(unique = true, nullable = false, length = 36, name = "id")
 	private String id;
 	/**
-	 * 
+	 * wx的openId
 	 */
-	@Column(nullable = false,length = 255, name = "open_id")
+	@Column(nullable = true,length = 255, name = "open_id")
 	private String openId;
 	/**
 	 * 地址
 	 */
-	@Column(nullable = false,length = 255, name = "address")
+	@Column(nullable = true,length = 255, name = "address")
 	private String address;
 	/**
 	 * 年龄
 	 */
-	@Column(nullable = false,length = 255, name = "age")
+	@Column(nullable = true,length = 255, name = "age")
 	private String age;
 	/**
 	 * 编号
 	 */
-	@Column(nullable = false,length = 255, name = "code")
+	@Column(nullable = true,length = 255, name = "code")
 	private String code;
 	/**
 	 * 性别
 	 */
-	@Column(nullable = false,length = 255, name = "gender")
+	@Column(nullable = true,length = 255, name = "gender")
 	private String gender;
 	/**
 	 * 头像
 	 */
-	@Column(nullable = false,length = 255, name = "head_portrait_img")
+	@Column(nullable = true,length = 255, name = "head_portrait_img")
 	private String headPortraitImg;
 	/**
 	 * 爱好
 	 */
-	@Column(nullable = false,length = 255, name = "hobby")
+	@Column(nullable = true,length = 255, name = "hobby")
 	private String hobby;
+	/**
+	 * 用户状态（1：启用  2：冻结）
+	 */
+	@Column(nullable = true,length = 255, name = "status")
+	private String status;
 	/**
 	 * 登录名
 	 */
-	@Column(nullable = false,length = 255, name = "login_name")
+	@Column(nullable = true,length = 255, name = "login_name")
 	private String loginName;
-	/**
-	 * 昵称
-	 */
-	@Column(nullable = false,length = 255, name = "nick_name")
-	private String nickName;
 	/**
 	 * 密码
 	 */
-	@Column(nullable = false,length = 255, name = "password")
+	@Column(nullable = true,length = 255, name = "password")
 	private String password;
+	/**
+	 * 昵称
+	 */
+	@Column(nullable = true,length = 255, name = "nick_name")
+	private String nickName;
 	/**
 	 * 口粮
 	 */
-	@Column(nullable = false,length = 255, name = "ration")
+	@Column(nullable = true,length = 255, name = "ration")
 	private String ration;
-	/**
-	 * 标签
-	 */
-	@Column(nullable = false,length = 255, name = "signature")
-	private String signature;
 	/**
 	 * 技能
 	 */
-	@Column(nullable = false,length = 255, name = "skill")
+	@Column(nullable = true,length = 255, name = "skill")
 	private String skill;
 	/**
 	 * 创建时间
 	 */
-	@Column(nullable = false, name = "create_time")
+	@Column(nullable = true, name = "create_time")
 	private java.util.Date createTime;
 	/**
 	 * 更新时间
 	 */
-	@Column(nullable = false, name = "update_time")
+	@Column(nullable = true, name = "update_time")
 	private java.util.Date updateTime;
 
 // setter and getter
@@ -157,19 +157,19 @@ public class User implements Serializable {
 	public void setHobby(String hobby){
 		this.hobby = hobby;
 	}
+	public String getStatus(){
+		return status;
+	}
+	
+	public void setStatus(String status){
+		this.status = status;
+	}
 	public String getLoginName(){
 		return loginName;
 	}
 	
 	public void setLoginName(String loginName){
 		this.loginName = loginName;
-	}
-	public String getNickName(){
-		return nickName;
-	}
-	
-	public void setNickName(String nickName){
-		this.nickName = nickName;
 	}
 	public String getPassword(){
 		return password;
@@ -178,19 +178,19 @@ public class User implements Serializable {
 	public void setPassword(String password){
 		this.password = password;
 	}
+	public String getNickName(){
+		return nickName;
+	}
+	
+	public void setNickName(String nickName){
+		this.nickName = nickName;
+	}
 	public String getRation(){
 		return ration;
 	}
 	
 	public void setRation(String ration){
 		this.ration = ration;
-	}
-	public String getSignature(){
-		return signature;
-	}
-	
-	public void setSignature(String signature){
-		this.signature = signature;
 	}
 	public String getSkill(){
 		return skill;

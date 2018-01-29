@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserSignatureDao">
+	
+	<select id="findUserSignatureById" resultType="cn.aldd.vape.user.micro.vo.UserSignatureVo" parameterType="java.lang.String">
+		<include refid="selectAllColumns" />
+		where record.id = #{id}
+	</select>
+	
+	<select id="findUserSignatureList" resultType="cn.aldd.vape.user.micro.vo.UserSignatureVo" >
+		<include refid="selectAllColumns"/>
+		<include refid="where_fragement" />
+	</select>
+	
+	<!-- 查询字段公共sql -->
+	<sql id="selectAllColumns">
+		<![CDATA[
+		SELECT
+			 id as id, 
+			 name as name, 
+			 user_id as userId, 
+			 create_time as createTime 
+			FROM user_signature record
+		]]>
+	</sql>
+
+	<sql id="where_fragement">
+		where 1=1
+		<if test="entity!=null">
+				<if test = "entity.id != null and entity.id != ''">
+					<![CDATA[ and record.id  = #{entity.id} ]]>
+				</if>
+				<if test = "entity.name != null and entity.name != ''">
+					<![CDATA[ and record.name  = #{entity.name} ]]>
+				</if>
+				<if test = "entity.userId != null and entity.userId != ''">
+					<![CDATA[ and record.user_id  = #{entity.userId} ]]>
+				</if>
+				<if test = "entity.createTime != null and entity.createTime != ''">
+					<![CDATA[ and record.create_time  = #{entity.createTime} ]]>
+				</if>
+		</if>
+	</sql>
+
+</mapper>

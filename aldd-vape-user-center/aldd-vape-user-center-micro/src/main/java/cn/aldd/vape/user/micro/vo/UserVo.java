@@ -1,78 +1,49 @@
 package cn.aldd.vape.user.micro.vo;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import cn.aldd.vape.common.Page;
 import io.swagger.annotations.ApiModelProperty;
 
-public class UserVo extends Page {
+public class UserVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	
 	@ApiModelProperty(value = "主键id")
 	private String id;
-	
-	
-	@ApiModelProperty(value = "")
+	@ApiModelProperty(value = "wx的openId")
 	private String openId;
-	
-	
 	@ApiModelProperty(value = "地址")
 	private String address;
-	
-	
 	@ApiModelProperty(value = "年龄")
 	private String age;
-	
-	
 	@ApiModelProperty(value = "编号")
 	private String code;
-	
-	
 	@ApiModelProperty(value = "性别")
 	private String gender;
-	
-	
 	@ApiModelProperty(value = "头像")
 	private String headPortraitImg;
-	
-	
 	@ApiModelProperty(value = "爱好")
 	private String hobby;
-	
-	
+	@ApiModelProperty(value = "用户状态（1：启用  2：冻结）")
+	private String status;
 	@ApiModelProperty(value = "登录名")
 	private String loginName;
-	
-	
-	@ApiModelProperty(value = "昵称")
-	private String nickName;
-	
-	
 	@ApiModelProperty(value = "密码")
 	private String password;
-	
-	
+	@ApiModelProperty(value = "昵称")
+	private String nickName;
 	@ApiModelProperty(value = "口粮")
 	private String ration;
-	
-	
-	@ApiModelProperty(value = "标签")
-	private String signature;
-	
-	
 	@ApiModelProperty(value = "技能")
 	private String skill;
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@ApiModelProperty(value = "创建时间")
-	private java.util.Date createTime;
-	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private java.util.Date createTime;
 	@ApiModelProperty(value = "更新时间")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private java.util.Date updateTime;
-	
 
 // setter and getter
 	public String getId(){
@@ -131,19 +102,19 @@ public class UserVo extends Page {
 	public void setHobby(String hobby){
 		this.hobby = hobby;
 	}
+	public String getStatus(){
+		return status;
+	}
+	
+	public void setStatus(String status){
+		this.status = status;
+	}
 	public String getLoginName(){
 		return loginName;
 	}
 	
 	public void setLoginName(String loginName){
 		this.loginName = loginName;
-	}
-	public String getNickName(){
-		return nickName;
-	}
-	
-	public void setNickName(String nickName){
-		this.nickName = nickName;
 	}
 	public String getPassword(){
 		return password;
@@ -152,19 +123,19 @@ public class UserVo extends Page {
 	public void setPassword(String password){
 		this.password = password;
 	}
+	public String getNickName(){
+		return nickName;
+	}
+	
+	public void setNickName(String nickName){
+		this.nickName = nickName;
+	}
 	public String getRation(){
 		return ration;
 	}
 	
 	public void setRation(String ration){
 		this.ration = ration;
-	}
-	public String getSignature(){
-		return signature;
-	}
-	
-	public void setSignature(String signature){
-		this.signature = signature;
 	}
 	public String getSkill(){
 		return skill;

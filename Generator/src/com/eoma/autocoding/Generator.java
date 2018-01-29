@@ -171,9 +171,10 @@ public class Generator {
 		list.add("encyclopedia");
 		list.add("encyclopedia_comment");
 		list.add("encyclopedia_image");
-		list.add("equipment");
 		list.add("user");
+		list.add("user_equipment");
 		list.add("user_follow");
+		list.add("user_signature");
 		for (String table : list) {
 			g.gen(table);
 		}
