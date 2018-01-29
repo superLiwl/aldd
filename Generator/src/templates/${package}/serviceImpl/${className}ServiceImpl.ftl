@@ -1,12 +1,12 @@
 package ${package}.service.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import ${package}.domain.${className};
 import ${package}.repository.jpa.${className}Repository;
@@ -43,9 +43,14 @@ public class ${className}ServiceImpl implements ${className}Service {
 	}
 
 	@Override
-	public List<${className}Vo> find${className}List(${className}Vo ${classNameLower}Vo) {
-		PageHelper.startPage(${classNameLower}Vo.getPageNum(), ${classNameLower}Vo.getPageSize());
-		List<${className}Vo> result = ${classNameLower}Dao.find${className}List(${classNameLower}Vo);
+	public PageInfo<${className}Vo> find${className}List(${className}Vo ${classNameLower}Vo, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		PageInfo<${className}Vo> result = new PageInfo<${className}Vo>(${classNameLower}Dao.find${className}List(${classNameLower}Vo));
+		if (pageNum > result.getPages()) {
+			result.setList(null);
+			result.setSize(0);
+			result.setPageNum(pageNum);
+		}
 		return result;
 	}
 

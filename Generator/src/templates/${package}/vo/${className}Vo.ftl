@@ -1,19 +1,23 @@
 package ${package}.vo;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import cn.aldd.vape.common.Page;
 import io.swagger.annotations.ApiModelProperty;
 
-public class ${className}Vo extends Page {
+public class ${className}Vo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	<#list table.columns as column>
-	<#if column.type != "String">@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")</#if>
+	<#if column.type != "String">
 	@ApiModelProperty(value = "${column.label}")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	<#else>
+	@ApiModelProperty(value = "${column.label}")
+	</#if>
 	private ${column.type} ${column.name};
-	
 </#list>
 
 // setter and getter

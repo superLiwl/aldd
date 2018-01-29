@@ -1,7 +1,5 @@
 package ${package}.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.aldd.vape.common.DataMessage;
 import ${package}.domain.${className};
 import ${package}.service.${className}Service;
 import ${package}.vo.${className}Vo;
@@ -18,29 +17,31 @@ public class ${className}MicroController {
 	@Autowired
 	private ${className}Service ${classNameLower}Service;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/add${className}")
-	public ${className} add${className}(@RequestBody ${className} ${classNameLower}) {
-		return ${classNameLower}Service.add${className}(${classNameLower});
+	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/add")
+	public DataMessage add${className}(@RequestBody ${className} ${classNameLower}) {
+		return DataMessage.createSuccessMsg(${classNameLower}Service.add${className}(${classNameLower}), "创建成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/update${className}")
-	public ${className} update${className}(@RequestBody ${className} ${classNameLower}) {
-		return ${classNameLower}Service.update${className}(${classNameLower});
+	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/update")
+	public DataMessage update${className}(@RequestBody ${className} ${classNameLower}) {
+		return DataMessage.createSuccessMsg(${classNameLower}Service.update${className}(${classNameLower}), "更新成功", "");
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/${classNameLower}/micro/{id}")
-	public ${className}Vo find${className}ById(@PathVariable("id") String id) {
-		return ${classNameLower}Service.find${className}ById(id);
+	public DataMessage find${className}ById(@PathVariable("id") String id) {
+		return DataMessage.createSuccessMsg(${classNameLower}Service.find${className}ById(id), "查询成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/find${className}List")
-	public List<${className}Vo> find${className}List(@RequestBody ${className}Vo ${classNameLower}Vo) {
-		return ${classNameLower}Service.find${className}List(${classNameLower}Vo);
+	@RequestMapping(method = RequestMethod.POST, value = "/${classNameLower}/micro/{pageNum}/{pageSize}")
+	public DataMessage find${className}List(@RequestBody ${className}Vo ${classNameLower}Vo, @PathVariable("pageNum") Integer pageNum,
+			@PathVariable("pageSize") Integer pageSize) {
+		return DataMessage.createSuccessMsg(${classNameLower}Service.find${className}List(${classNameLower}Vo, pageNum, pageSize), "查询成功", "");
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/${classNameLower}/micro/{id}")
-	public void delete${className}ById(@PathVariable("id") String id) {
+	public DataMessage delete${className}ById(@PathVariable("id") String id) {
 		${classNameLower}Service.delete${className}ById(id);
+		return DataMessage.createSuccessMsg(true, "删除成功", "");
 	}
 
 }

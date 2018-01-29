@@ -1,13 +1,11 @@
 package ${package}.service;
 
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 import ${package}.domain.${className};
 import ${package}.vo.${className}Vo;
 
-
 public interface ${className}Service {
-	
 
 	${className} add${className}(${className} ${classNameLower});
 
@@ -15,8 +13,8 @@ public interface ${className}Service {
 
 	${className}Vo find${className}ById(String id);
 
-	List<${className}Vo> find${className}List(${className}Vo ${classNameLower}Vo);
+	PageInfo<${className}Vo> find${className}List(${className}Vo ${classNameLower}Vo, Integer pageNum, Integer pageSize);
 
 	void delete${className}ById(String id);
-	
+
 }
