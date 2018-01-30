@@ -4,26 +4,50 @@
 
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.EncyclopediaDao">
 	
-	<select id="findEncyclopediaById" resultType="cn.aldd.vape.user.micro.vo.EncyclopediaVo" parameterType="java.lang.String">
+	<select id="findEncyclopediaById" resultMap="encyclopediaResult" parameterType="java.lang.String">
 		<include refid="selectAllColumns" />
 		where record.id = #{id}
 	</select>
 	
-	<select id="findEncyclopediaList" resultType="cn.aldd.vape.user.micro.vo.EncyclopediaVo" >
+	<select id="findEncyclopediaList" resultMap="encyclopediaResult" >
 		<include refid="selectAllColumns"/>
 		<include refid="where_fragement" />
 	</select>
+	
+	
+	<resultMap id="encyclopediaResult" type="cn.aldd.vape.user.micro.vo.EncyclopediaVo">  
+	    <id property="id" column="id"/>  
+	    <result property="title" column="title"/>  
+	    <result property="author" column="author"/>  
+	    <result property="content" column="content"/>  
+	    <result property="createTime" column="createTime"/>  
+	      
+	    <collection property="images" column="encyclopedia_id" ofType="cn.aldd.vape.user.micro.vo.EncyclopediaImageVo">  
+	        <result property="id" column="imageId"/>
+	        <result property="encyclopediaId" column="encyclopediaId"/>
+	        <result property="type" column="type"/>
+	        <result property="url" column="url"/>  
+	        <result property="createTime" column="imageCreateTime"/>  
+	    </collection>  
+  	</resultMap>
+	
 	
 	<!-- 查询字段公共sql -->
 	<sql id="selectAllColumns">
 		<![CDATA[
 		SELECT
-			 id as id, 
-			 title as title, 
-			 author as author, 
-			 content as content, 
-			 create_time as createTime 
+			 record.id as id, 
+			 record.title as title, 
+			 record.author as author, 
+			 record.content as content, 
+			 record.create_time as createTime ,
+			 image.id AS imageId,
+			 image.url AS url,
+			 image.type AS type,
+			 image.encyclopedia_id AS encyclopediaId,
+			 image.create_time AS imageCreateTime
 			FROM encyclopedia record
+			LEFT JOIN encyclopedia_image image ON record.id = image.encyclopedia_id 
 		]]>
 	</sql>
 

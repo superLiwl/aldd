@@ -24,6 +24,10 @@ public class DynamicVo implements Serializable {
 	private java.util.Date createTime;
 	@ApiModelProperty(value = "动态内容图片")
 	private List<DynamicImageVo> images;
+	@ApiModelProperty(value = "动态点赞")
+	private List<DynamicFabulousVo> fabulous;
+	@ApiModelProperty(value = "动态打赏")
+	private List<DynamicRewardVo> rewards;
 
 	// setter and getter
 	public String getId() {
@@ -72,6 +76,22 @@ public class DynamicVo implements Serializable {
 
 	public void setImages(List<DynamicImageVo> images) {
 		this.images = images;
+	}
+
+	public List<DynamicFabulousVo> getFabulous() {
+		return fabulous;
+	}
+
+	public void setFabulous(List<DynamicFabulousVo> fabulous) {
+		this.fabulous = fabulous;
+	}
+
+	public List<DynamicRewardVo> getRewards() {
+		return rewards;
+	}
+
+	public void setRewards(List<DynamicRewardVo> rewards) {
+		this.rewards = rewards;
 	}
 
 }

@@ -4,9 +4,22 @@
 
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicDao">
 	
+	<select id="findDynamicInfosById" resultType="cn.aldd.vape.user.micro.vo.DynamicInfosVo" parameterType="java.lang.String">
+	SELECT d.*,u.nick_name AS nickName ,u.head_portrait_img AS headPortraitImg FROM (	
+			(SELECT r.id as businessId,r.dynamic_id AS dynamicId ,r.create_user_id AS createUserId ,r.create_time AS createTime,r.reward_num AS businessData ,'reward' as type 
+				FROM dynamic_reward r WHERE r.dynamic_id = #{id} ORDER BY r.create_time ASC)
+		UNION 
+			(SELECT f.id as businessId,f.dynamic_id AS dynamicId ,f.create_user_id AS createUserId ,f.create_time AS createTime,'' AS businessData , 'fabulous' as type 
+				FROM dynamic_fabulous f WHERE f.dynamic_id = #{id} ORDER BY f.create_time ASC)
+		UNION 
+			(SELECT c.id,c.dynamic_id AS dynamicId ,c.create_user_id AS createUserId ,c.create_time AS createTime ,c.comment_id AS businessData , 'comment' as type 
+				FROM dynamic_comment c WHERE c.dynamic_id = #{id} ORDER BY c.create_time DESC)
+	) AS d LEFT JOIN user u on u.id = d.createUserId
+	</select>
+	
 	<select id="findDynamicById" resultMap="dynamicResult" parameterType="java.lang.String">
 		<include refid="selectAllColumns" />
-		and record.id = #{id}
+		where record.id = #{id}
 	</select>
 	
 	<select id="findDynamicList" resultMap="dynamicResult" >
@@ -45,12 +58,13 @@
 			 dyImage.url as url, 
 			 dyImage.type as type,
 			 dyImage.create_time as imageCreateTime
-			FROM dynamic record , dynamic_image dyImage 
-	   	 	WHERE record.id = dyImage.dynamic_id
+			FROM dynamic record 
+			LEFT JOIN dynamic_image dyImage ON record.id = dyImage.dynamic_id
 		]]>
 	</sql>
 
 	<sql id="where_fragement">
+		where 1=1
 		<if test="entity!=null">
 				<if test = "entity.id != null and entity.id != ''">
 					<![CDATA[ and record.id  = #{entity.id} ]]>
