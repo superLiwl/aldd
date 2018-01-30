@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.aldd.vape.common.DataMessage;
 import cn.aldd.vape.user.micro.domain.CarouselFigure;
 import cn.aldd.vape.user.micro.service.CarouselFigureService;
-import cn.aldd.vape.user.micro.vo.CarouselFigureVo;
 
 @RestController
 @RequestMapping(value = "/carouselFigure/micro")
@@ -33,10 +32,10 @@ public class CarouselFigureMicroController {
 		return DataMessage.createSuccessMsg(carouselFigureService.findCarouselFigureById(id), "查询成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/{pageNum}/{pageSize}")
-	public DataMessage findCarouselFigureList(@RequestBody CarouselFigureVo carouselFigureVo, @PathVariable("pageNum") Integer pageNum,
+	@RequestMapping(method = RequestMethod.GET, value = "/{pageNum}/{pageSize}")
+	public DataMessage findCarouselFigureList(/*@RequestBody CarouselFigureVo carouselFigureVo,*/ @PathVariable("pageNum") Integer pageNum,
 			@PathVariable("pageSize") Integer pageSize) {
-		return DataMessage.createSuccessMsg(carouselFigureService.findCarouselFigureList(carouselFigureVo, pageNum, pageSize), "查询成功", "");
+		return DataMessage.createSuccessMsg(carouselFigureService.findCarouselFigureList(null, pageNum, pageSize), "查询成功", "");
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
