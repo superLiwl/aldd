@@ -1,6 +1,7 @@
 package cn.aldd.vape.user.micro.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import cn.aldd.vape.user.micro.repository.jpa.DynamicFabulousRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicFabulousDao;
 import cn.aldd.vape.user.micro.service.DynamicFabulousService;
 import cn.aldd.vape.user.micro.vo.DynamicFabulousVo;
+import cn.aldd.vape.util.Utils;
 
 @Service("dynamicFabulousService")
 public class DynamicFabulousServiceImpl implements DynamicFabulousService {
@@ -24,8 +26,18 @@ public class DynamicFabulousServiceImpl implements DynamicFabulousService {
 
 	@Override
 	public DynamicFabulous addDynamicFabulous(DynamicFabulous dynamicFabulous) {
-		dynamicFabulous.setCreateTime(new Date());
-		dynamicFabulous = dynamicFabulousRepository.save(dynamicFabulous);
+		//判断是否已经点赞过,已经点赞的取消点赞
+		DynamicFabulousVo dynamicFabulousVo = new DynamicFabulousVo();
+		dynamicFabulousVo.setCreateUserId(dynamicFabulous.getCreateUserId());
+		dynamicFabulousVo.setDynamicId(dynamicFabulous.getDynamicId());
+		List<DynamicFabulousVo> list = dynamicFabulousDao.findDynamicFabulousList(dynamicFabulousVo);
+		if(Utils.isNullList(list)){
+			dynamicFabulous.setCreateTime(new Date());
+			dynamicFabulous = dynamicFabulousRepository.save(dynamicFabulous);
+		}else{
+			dynamicFabulousRepository.delete(list.get(0).getId());
+			return null;
+		}
 		return dynamicFabulous;
 	}
 
