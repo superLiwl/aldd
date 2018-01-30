@@ -4,31 +4,53 @@
 
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicDao">
 	
-	<select id="findDynamicById" resultType="cn.aldd.vape.user.micro.vo.DynamicVo" parameterType="java.lang.String">
+	<select id="findDynamicById" resultMap="dynamicResult" parameterType="java.lang.String">
 		<include refid="selectAllColumns" />
-		where record.id = #{id}
+		and record.id = #{id}
 	</select>
 	
-	<select id="findDynamicList" resultType="cn.aldd.vape.user.micro.vo.DynamicVo" >
+	<select id="findDynamicList" resultMap="dynamicResult" >
 		<include refid="selectAllColumns"/>
 		<include refid="where_fragement" />
 	</select>
 	
+	
+	<resultMap id="dynamicResult" type="cn.aldd.vape.user.micro.vo.DynamicVo">  
+	    <id property="id" column="id"/>  
+	    <result property="address" column="address"/>  
+	    <result property="content" column="content"/>  
+	    <result property="createUserId" column="createUserId"/>  
+	    <result property="createTime" column="createTime"/>  
+	      
+	    <collection property="images" column="dynamic_id" ofType="cn.aldd.vape.user.micro.vo.DynamicImageVo">  
+	        <result property="id" column="imageId"/>
+	        <result property="dynamicId" column="dynamicId"/>
+	        <result property="type" column="type"/>
+	        <result property="url" column="url"/>  
+	        <result property="createTime" column="imageCreateTime"/>  
+	    </collection>  
+  	</resultMap>
+  	
 	<!-- 查询字段公共sql -->
 	<sql id="selectAllColumns">
 		<![CDATA[
 		SELECT
-			 id as id, 
-			 address as address, 
-			 content as content, 
-			 create_user_id as createUserId, 
-			 create_time as createTime 
-			FROM dynamic record
+			 record.id as id, 
+			 record.address as address, 
+			 record.content as content, 
+			 record.create_user_id as createUserId, 
+			 record.create_time as createTime,
+			 dyImage.id as imageId, 
+			 dyImage.dynamic_id as dynamicId, 
+			 dyImage.url as url, 
+			 dyImage.type as type,
+			 dyImage.create_time as imageCreateTime
+			FROM dynamic record , dynamic_image dyImage 
+	   	 	WHERE record.id = dyImage.dynamic_id
 		]]>
 	</sql>
 
 	<sql id="where_fragement">
-		where 1=1
 		<if test="entity!=null">
 				<if test = "entity.id != null and entity.id != ''">
 					<![CDATA[ and record.id  = #{entity.id} ]]>
@@ -42,10 +64,8 @@
 				<if test = "entity.createUserId != null and entity.createUserId != ''">
 					<![CDATA[ and record.create_user_id  = #{entity.createUserId} ]]>
 				</if>
-				<if test = "entity.createTime != null and entity.createTime != ''">
-					<![CDATA[ and record.create_time  = #{entity.createTime} ]]>
-				</if>
 		</if>
+		order by record.create_time desc
 	</sql>
 
 </mapper>

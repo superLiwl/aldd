@@ -19,7 +19,7 @@
 		<![CDATA[
 		SELECT
 		<#list table.columns as column>
-			 ${column.dbName} as ${column.name}<#if column_has_next>,</#if> 
+			 record.${column.dbName} as ${column.name}<#if column_has_next>,</#if> 
 		</#list>
 			FROM ${table.dbName} record
 		]]>

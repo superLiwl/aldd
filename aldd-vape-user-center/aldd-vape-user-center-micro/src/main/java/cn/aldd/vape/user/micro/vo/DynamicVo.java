@@ -1,6 +1,7 @@
 package cn.aldd.vape.user.micro.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -9,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class DynamicVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@ApiModelProperty(value = "主键id")
 	private String id;
 	@ApiModelProperty(value = "发表地址")
@@ -21,42 +22,56 @@ public class DynamicVo implements Serializable {
 	@ApiModelProperty(value = "创建时间")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private java.util.Date createTime;
+	@ApiModelProperty(value = "动态内容图片")
+	private List<DynamicImageVo> images;
 
-// setter and getter
-	public String getId(){
+	// setter and getter
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(String id){
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	public String getAddress(){
+
+	public String getAddress() {
 		return address;
 	}
-	
-	public void setAddress(String address){
+
+	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getContent(){
+
+	public String getContent() {
 		return content;
 	}
-	
-	public void setContent(String content){
+
+	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getCreateUserId(){
+
+	public String getCreateUserId() {
 		return createUserId;
 	}
-	
-	public void setCreateUserId(String createUserId){
+
+	public void setCreateUserId(String createUserId) {
 		this.createUserId = createUserId;
 	}
-	public java.util.Date getCreateTime(){
+
+	public java.util.Date getCreateTime() {
 		return createTime;
 	}
-	
-	public void setCreateTime(java.util.Date createTime){
+
+	public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
 	}
-	
+
+	public List<DynamicImageVo> getImages() {
+		return images;
+	}
+
+	public void setImages(List<DynamicImageVo> images) {
+		this.images = images;
+	}
+
 }
