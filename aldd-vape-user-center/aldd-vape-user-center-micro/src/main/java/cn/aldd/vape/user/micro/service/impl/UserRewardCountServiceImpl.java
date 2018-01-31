@@ -24,6 +24,9 @@ public class UserRewardCountServiceImpl implements UserRewardCountService {
 
 	@Override
 	public UserRewardCount addUserRewardCount(UserRewardCount userRewardCount) {
+		//需要判断今天是否已经增加了打赏次数，并且每日最多增加打赏次数为30
+		
+		
 		userRewardCount.setCreateTime(new Date());
 		userRewardCount = userRewardCountRepository.save(userRewardCount);
 		return userRewardCount;

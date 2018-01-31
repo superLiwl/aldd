@@ -24,6 +24,18 @@ public class Utils {
 		}
 		return false;
 	}
+	
+	/**
+	 * isInList: 判断字符串是否在list中
+	 */
+	public static boolean isInList(List<String> list , String str) {
+		for(String s : list){
+			if(s.equals(str)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * isNullStrArry: 判断字符串数组是否为空

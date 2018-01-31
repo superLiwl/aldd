@@ -12,6 +12,9 @@ public interface UserSignDao {
 
 	UserSignVo findUserSignById(@Param("id") String id);
 
+	List<UserSignVo> findWeekUserSignByUserId(@Param("userId") String userId, @Param("start") String start,
+			@Param("end") String end);
+
 	List<UserSignVo> findUserSignList(@Param("entity") UserSignVo userSignVo);
 
 }

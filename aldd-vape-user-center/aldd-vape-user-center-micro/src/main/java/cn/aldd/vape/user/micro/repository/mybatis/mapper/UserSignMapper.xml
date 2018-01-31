@@ -4,6 +4,19 @@
 
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserSignDao">
 	
+	
+	<select id="findWeekUserSignByUserId" resultType="cn.aldd.vape.user.micro.vo.UserSignVo" parameterType="java.lang.String">
+		<include refid="selectAllColumns" />
+		where 
+			date_format(record.create_time,'%Y-%m-%d') 
+				BETWEEN date_format(#{start},'%Y-%m-%d') 
+			AND 
+				date_format(#{end},'%Y-%m-%d') 
+		and record.user_id = #{userId}
+		order by create_time DESC
+	</select>
+	
+	
 	<select id="findUserSignById" resultType="cn.aldd.vape.user.micro.vo.UserSignVo" parameterType="java.lang.String">
 		<include refid="selectAllColumns" />
 		where record.id = #{id}
