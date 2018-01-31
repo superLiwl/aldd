@@ -162,19 +162,21 @@ public class Generator {
 	public static void main(String[] args) throws Exception{
 		Generator g = new Generator();
 		List<String> list = new ArrayList<>();
-		list.add("carousel_figure");
-		list.add("dynamic");
-		list.add("dynamic_comment");
-		list.add("dynamic_fabulous");
-		list.add("dynamic_image");
-		list.add("dynamic_reward");
-		list.add("encyclopedia");
-		list.add("encyclopedia_comment");
-		list.add("encyclopedia_image");
-		list.add("user");
-		list.add("user_equipment");
-		list.add("user_follow");
-		list.add("user_signature");
+//		list.add("carousel_figure");
+//		list.add("dynamic");
+//		list.add("dynamic_comment");
+//		list.add("dynamic_fabulous");
+//		list.add("dynamic_image");
+//		list.add("dynamic_reward");
+//		list.add("encyclopedia");
+//		list.add("encyclopedia_comment");
+//		list.add("encyclopedia_image");
+//		list.add("user");
+//		list.add("user_equipment");
+//		list.add("user_follow");
+//		list.add("user_signature");
+		list.add("user_sign");
+		list.add("user_reward_count");
 		for (String table : list) {
 			g.gen(table);
 		}

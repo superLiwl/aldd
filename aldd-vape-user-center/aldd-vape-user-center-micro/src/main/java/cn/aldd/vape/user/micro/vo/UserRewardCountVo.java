@@ -1,0 +1,62 @@
+package cn.aldd.vape.user.micro.vo;
+
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import io.swagger.annotations.ApiModelProperty;
+
+public class UserRewardCountVo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@ApiModelProperty(value = "主键id")
+	private String id;
+	@ApiModelProperty(value = "用户id")
+	private String userId;
+	@ApiModelProperty(value = "拥有打赏次数")
+	private String haveRewardCount;
+	@ApiModelProperty(value = "已经打赏次数")
+	private String usedRewardCount;
+	@ApiModelProperty(value = "创建时间")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private java.util.Date createTime;
+
+// setter and getter
+	public String getId(){
+		return id;
+	}
+	
+	public void setId(String id){
+		this.id = id;
+	}
+	public String getUserId(){
+		return userId;
+	}
+	
+	public void setUserId(String userId){
+		this.userId = userId;
+	}
+	public String getHaveRewardCount(){
+		return haveRewardCount;
+	}
+	
+	public void setHaveRewardCount(String haveRewardCount){
+		this.haveRewardCount = haveRewardCount;
+	}
+	public String getUsedRewardCount(){
+		return usedRewardCount;
+	}
+	
+	public void setUsedRewardCount(String usedRewardCount){
+		this.usedRewardCount = usedRewardCount;
+	}
+	public java.util.Date getCreateTime(){
+		return createTime;
+	}
+	
+	public void setCreateTime(java.util.Date createTime){
+		this.createTime = createTime;
+	}
+	
+}

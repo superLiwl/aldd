@@ -1,6 +1,7 @@
 package cn.aldd.vape.util;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class Utils {
@@ -34,5 +35,18 @@ public class Utils {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * 生成随机数
+	 * @return 随机数
+	 */
+	public static int getRandomNum(int num) {
+		Random ran = new Random();
+		int result = ran.nextInt(num);
+		if(result > 4){
+			result = ran.nextInt(num);
+		}
+		return result;
 	}
 }

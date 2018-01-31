@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserRewardCountDao">
+	
+	<select id="findUserRewardCountById" resultType="cn.aldd.vape.user.micro.vo.UserRewardCountVo" parameterType="java.lang.String">
+		<include refid="selectAllColumns" />
+		where record.id = #{id}
+	</select>
+	
+	<select id="findUserRewardCountList" resultType="cn.aldd.vape.user.micro.vo.UserRewardCountVo" >
+		<include refid="selectAllColumns"/>
+		<include refid="where_fragement" />
+	</select>
+	
+	<!-- 查询字段公共sql -->
+	<sql id="selectAllColumns">
+		<![CDATA[
+		SELECT
+			 record.id as id, 
+			 record.user_id as userId, 
+			 record.have_reward_count as haveRewardCount, 
+			 record.used_reward_count as usedRewardCount, 
+			 record.create_time as createTime 
+			FROM user_reward_count record
+		]]>
+	</sql>
+
+	<sql id="where_fragement">
+		where 1=1
+		<if test="entity!=null">
+				<if test = "entity.id != null and entity.id != ''">
+					<![CDATA[ and record.id  = #{entity.id} ]]>
+				</if>
+				<if test = "entity.userId != null and entity.userId != ''">
+					<![CDATA[ and record.user_id  = #{entity.userId} ]]>
+				</if>
+				<if test = "entity.haveRewardCount != null and entity.haveRewardCount != ''">
+					<![CDATA[ and record.have_reward_count  = #{entity.haveRewardCount} ]]>
+				</if>
+				<if test = "entity.usedRewardCount != null and entity.usedRewardCount != ''">
+					<![CDATA[ and record.used_reward_count  = #{entity.usedRewardCount} ]]>
+				</if>
+				<if test = "entity.createTime != null and entity.createTime != ''">
+					<![CDATA[ and record.create_time  = #{entity.createTime} ]]>
+				</if>
+		</if>
+	</sql>
+
+</mapper>

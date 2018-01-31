@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.aldd.vape.user.micro.constants.CommonConstants;
 import cn.aldd.vape.user.micro.domain.DynamicReward;
 import cn.aldd.vape.user.micro.repository.jpa.DynamicRewardRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicRewardDao;
 import cn.aldd.vape.user.micro.service.DynamicRewardService;
 import cn.aldd.vape.user.micro.vo.DynamicRewardVo;
+import cn.aldd.vape.util.Utils;
 
 @Service("dynamicRewardService")
 public class DynamicRewardServiceImpl implements DynamicRewardService {
@@ -24,6 +26,9 @@ public class DynamicRewardServiceImpl implements DynamicRewardService {
 
 	@Override
 	public DynamicReward addDynamicReward(DynamicReward dynamicReward) {
+		//判断打赏的次数
+		//获取随机的烟油数量
+		dynamicReward.setRewardNum(CommonConstants.REWARDNUM_ARRY[Utils.getRandomNum(10)]);
 		dynamicReward.setCreateTime(new Date());
 		dynamicReward = dynamicRewardRepository.save(dynamicReward);
 		return dynamicReward;

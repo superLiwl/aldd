@@ -18,31 +18,20 @@ public class DynamicRewardMicroController {
 	@Autowired
 	private DynamicRewardService dynamicRewardService;
 
-	@RequestMapping(method = RequestMethod.POST, value = "/add")
-	public DataMessage addDynamicReward(@RequestBody DynamicReward dynamicReward) {
-		return DataMessage.createSuccessMsg(dynamicRewardService.addDynamicReward(dynamicReward), "创建成功", "");
-	}
-
-	@RequestMapping(method = RequestMethod.POST, value = "/update")
-	public DataMessage updateDynamicReward(@RequestBody DynamicReward dynamicReward) {
-		return DataMessage.createSuccessMsg(dynamicRewardService.updateDynamicReward(dynamicReward), "更新成功", "");
-	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public DataMessage findDynamicRewardById(@PathVariable("id") String id) {
-		return DataMessage.createSuccessMsg(dynamicRewardService.findDynamicRewardById(id), "查询成功", "");
+	@RequestMapping(method = RequestMethod.GET, value = "/{dynamicId}/{userId}")
+	public DataMessage addDynamicReward(@PathVariable("dynamicId") String dynamicId,
+			@PathVariable("userId") String userId) {
+		DynamicReward dynamicReward = new DynamicReward();
+		dynamicReward.setDynamicId(dynamicId);
+		dynamicReward.setCreateUserId(userId);
+		return DataMessage.createSuccessMsg(dynamicRewardService.addDynamicReward(dynamicReward), "打赏成功", "");
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/{pageNum}/{pageSize}")
-	public DataMessage findDynamicRewardList(@RequestBody DynamicRewardVo dynamicRewardVo, @PathVariable("pageNum") Integer pageNum,
-			@PathVariable("pageSize") Integer pageSize) {
-		return DataMessage.createSuccessMsg(dynamicRewardService.findDynamicRewardList(dynamicRewardVo, pageNum, pageSize), "查询成功", "");
-	}
-
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-	public DataMessage deleteDynamicRewardById(@PathVariable("id") String id) {
-		dynamicRewardService.deleteDynamicRewardById(id);
-		return DataMessage.createSuccessMsg(true, "删除成功", "");
+	public DataMessage findDynamicRewardList(@RequestBody DynamicRewardVo dynamicRewardVo,
+			@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
+		return DataMessage.createSuccessMsg(
+				dynamicRewardService.findDynamicRewardList(dynamicRewardVo, pageNum, pageSize), "查询成功", "");
 	}
 
 }
