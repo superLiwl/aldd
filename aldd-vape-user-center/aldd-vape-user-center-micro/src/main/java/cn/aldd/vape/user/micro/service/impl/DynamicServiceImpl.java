@@ -14,10 +14,12 @@ import com.github.pagehelper.PageInfo;
 import cn.aldd.vape.user.micro.constants.DynamicTypeEnum;
 import cn.aldd.vape.user.micro.domain.Dynamic;
 import cn.aldd.vape.user.micro.domain.DynamicImage;
+import cn.aldd.vape.user.micro.domain.UserRewardCount;
 import cn.aldd.vape.user.micro.repository.jpa.DynamicRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicDao;
 import cn.aldd.vape.user.micro.service.DynamicImageService;
 import cn.aldd.vape.user.micro.service.DynamicService;
+import cn.aldd.vape.user.micro.service.UserRewardCountService;
 import cn.aldd.vape.user.micro.vo.DynamicFabulousVo;
 import cn.aldd.vape.user.micro.vo.DynamicInfosVo;
 import cn.aldd.vape.user.micro.vo.DynamicRewardVo;
@@ -33,9 +35,20 @@ public class DynamicServiceImpl implements DynamicService {
 	private DynamicRepository dynamicRepository;
 	@Autowired
 	private DynamicImageService imageService;
+	@Autowired
+	private UserRewardCountService userRewardCountService;
 
 	@Override
 	public Dynamic addDynamic(Dynamic dynamic) {
+		//判断今天发表几条动态//只有前五条动态获取打赏资格
+		int count = dynamicDao.findTodayCountDynamicByUserId(dynamic.getCreateUserId());
+		if(count < 5){
+			//增加打赏次数================================
+			UserRewardCount userRewardCount = new UserRewardCount();
+			userRewardCount.setUserId(dynamic.getCreateUserId());
+			userRewardCount.setHaveRewardCount("2");
+			userRewardCountService.addUserRewardCount(userRewardCount);
+		}
 		dynamic.setCreateTime(new Date());
 		dynamic = dynamicRepository.save(dynamic);
 		// 增加动态图片

@@ -14,7 +14,9 @@ public interface DynamicDao {
 	DynamicVo findDynamicById(@Param("id") String id);
 
 	List<DynamicVo> findDynamicList(@Param("entity") DynamicVo dynamicVo);
-	
+
 	List<DynamicInfosVo> findDynamicInfosById(@Param("id") String id);
+
+	Integer findTodayCountDynamicByUserId(@Param("userId") String userId);
 
 }

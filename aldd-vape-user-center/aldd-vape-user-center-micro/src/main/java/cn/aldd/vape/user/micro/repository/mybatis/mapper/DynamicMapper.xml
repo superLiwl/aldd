@@ -3,6 +3,10 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicDao">
+
+	<select id="findTodayCountDynamicByUserId" resultType="Integer" parameterType="java.lang.String">
+		select count(1) from dynamic where to_days(create_time) = to_days(now()) and create_user_id = #{userId}
+	</select>
 	
 	<select id="findDynamicInfosById" resultType="cn.aldd.vape.user.micro.vo.DynamicInfosVo" parameterType="java.lang.String">
 	SELECT d.*,u.nick_name AS nickName ,u.head_portrait_img AS headPortraitImg FROM (	
