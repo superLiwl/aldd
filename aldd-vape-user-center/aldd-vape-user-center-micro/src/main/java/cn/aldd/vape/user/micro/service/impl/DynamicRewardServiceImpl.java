@@ -50,7 +50,8 @@ public class DynamicRewardServiceImpl implements DynamicRewardService {
 		userRewardCount.setHaveRewardCount(countVo.getHaveRewardCount());
 		userRewardCount.setId(countVo.getId());
 		userRewardCount.setCreateTime(countVo.getCreateTime());
-		userRewardCount.setUsedRewardCount(Utils.add("1", userRewardCount.getHaveRewardCount()));
+		userRewardCount.setUserId(dynamicReward.getCreateUserId());
+		userRewardCount.setUsedRewardCount(Utils.add("1", countVo.getUsedRewardCount()));
 		userRewardCount = userRewardCountRepository.save(userRewardCount);
 		
 		return dynamicReward;

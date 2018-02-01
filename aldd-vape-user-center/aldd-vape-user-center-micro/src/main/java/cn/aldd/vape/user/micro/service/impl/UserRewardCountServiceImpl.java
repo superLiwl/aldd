@@ -40,6 +40,7 @@ public class UserRewardCountServiceImpl implements UserRewardCountService {
 			userRewardCount.setId(countVo.getId());
 			userRewardCount.setCreateTime(countVo.getCreateTime());
 			userRewardCount.setUsedRewardCount(countVo.getUsedRewardCount());
+			userRewardCount.setUserId(userRewardCount.getUserId());
 			userRewardCount = userRewardCountRepository.save(userRewardCount);
 		}
 		return userRewardCount;
