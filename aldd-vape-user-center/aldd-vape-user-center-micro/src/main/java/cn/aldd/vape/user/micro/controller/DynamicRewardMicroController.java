@@ -24,7 +24,11 @@ public class DynamicRewardMicroController {
 		DynamicReward dynamicReward = new DynamicReward();
 		dynamicReward.setDynamicId(dynamicId);
 		dynamicReward.setCreateUserId(userId);
-		return DataMessage.createSuccessMsg(dynamicRewardService.addDynamicReward(dynamicReward), "打赏成功", "");
+		dynamicReward = dynamicRewardService.addDynamicReward(dynamicReward);
+		if(null == dynamicReward){
+			return DataMessage.createSuccessMsg(null, "打赏次数已经用完", "");
+		}
+		return DataMessage.createSuccessMsg(dynamicReward, "打赏成功", "");
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/{pageNum}/{pageSize}")
