@@ -13,6 +13,7 @@ import cn.aldd.vape.user.micro.repository.jpa.UserRewardCountRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.UserRewardCountDao;
 import cn.aldd.vape.user.micro.service.UserRewardCountService;
 import cn.aldd.vape.user.micro.vo.UserRewardCountVo;
+import cn.aldd.vape.util.Utils;
 
 @Service("userRewardCountService")
 public class UserRewardCountServiceImpl implements UserRewardCountService {
@@ -25,10 +26,22 @@ public class UserRewardCountServiceImpl implements UserRewardCountService {
 	@Override
 	public UserRewardCount addUserRewardCount(UserRewardCount userRewardCount) {
 		//需要判断今天是否已经增加了打赏次数，并且每日最多增加打赏次数为30
-		
-		
-		userRewardCount.setCreateTime(new Date());
-		userRewardCount = userRewardCountRepository.save(userRewardCount);
+		UserRewardCountVo countVo = userRewardCountDao.findTodayUserRewardCountByUserId(userRewardCount.getUserId());
+		if(null == countVo){
+			userRewardCount.setCreateTime(new Date());
+			userRewardCount.setUsedRewardCount("0");
+			userRewardCount = userRewardCountRepository.save(userRewardCount);
+		}else{
+			String count = Utils.add(countVo.getHaveRewardCount(), userRewardCount.getHaveRewardCount());
+			if(Integer.parseInt(count)>= 30){
+				count = "30";
+			}
+			userRewardCount.setHaveRewardCount(count);
+			userRewardCount.setId(countVo.getId());
+			userRewardCount.setCreateTime(countVo.getCreateTime());
+			userRewardCount.setUsedRewardCount(countVo.getUsedRewardCount());
+			userRewardCount = userRewardCountRepository.save(userRewardCount);
+		}
 		return userRewardCount;
 	}
 

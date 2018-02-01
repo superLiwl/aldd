@@ -4,6 +4,13 @@
 
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserRewardCountDao">
 	
+	
+	<select id="findTodayUserRewardCountByUserId" resultType="cn.aldd.vape.user.micro.vo.UserRewardCountVo" parameterType="java.lang.String">
+		<include refid="selectAllColumns" />
+		where record.user_id = #{userId}
+		and to_days(record.create_time) = to_days(now());
+	</select>
+	
 	<select id="findUserRewardCountById" resultType="cn.aldd.vape.user.micro.vo.UserRewardCountVo" parameterType="java.lang.String">
 		<include refid="selectAllColumns" />
 		where record.id = #{id}

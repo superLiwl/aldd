@@ -1,5 +1,6 @@
 package cn.aldd.vape.util;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -61,4 +62,14 @@ public class Utils {
 		}
 		return result;
 	}
+	
+	/**
+	 * 字符串加法
+	 * @return 随机数
+	 */
+	public static String add(String v1, String v2) {  
+        BigDecimal b1 = new BigDecimal(v1);
+        BigDecimal b2 = new BigDecimal(v2);  
+        return b1.add(b2).toString();  
+    }  
 }

@@ -14,4 +14,5 @@ public interface UserRewardCountDao {
 
 	List<UserRewardCountVo> findUserRewardCountList(@Param("entity") UserRewardCountVo userRewardCountVo);
 
+	UserRewardCountVo findTodayUserRewardCountByUserId(@Param("userId") String userId);
 }
