@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.aldd.vape.constants.CommonConstants;
 import cn.aldd.vape.user.micro.domain.DynamicImage;
 import cn.aldd.vape.user.micro.repository.jpa.DynamicImageRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicImageDao;
@@ -47,7 +48,13 @@ public class DynamicImageServiceImpl implements DynamicImageService {
 
 	@Override
 	public List<DynamicImageVo> findDynamicImageListOderHot() {
-		return dynamicImageDao.findDynamicImageListOderHot();
+		List<DynamicImageVo> result = dynamicImageDao.findDynamicImageListOderHot();
+		if (!Utils.isNullList(result)) {
+			for (DynamicImageVo dynamicImageVo : result) {
+				dynamicImageVo.setUrl(CommonConstants.IMG_URL + dynamicImageVo.getUrl());
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -69,6 +76,11 @@ public class DynamicImageServiceImpl implements DynamicImageService {
 			result.setList(null);
 			result.setSize(0);
 			result.setPageNum(pageNum);
+		}
+		if (!Utils.isNullList(result.getList())) {
+			for (DynamicImageVo vo : result.getList()) {
+				vo.setUrl(CommonConstants.IMG_URL + vo.getUrl());
+			}
 		}
 		return result;
 	}
