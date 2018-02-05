@@ -1,6 +1,8 @@
 package cn.aldd.vape.user.micro.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import cn.aldd.vape.user.micro.repository.jpa.DynamicImageRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicImageDao;
 import cn.aldd.vape.user.micro.service.DynamicImageService;
 import cn.aldd.vape.user.micro.vo.DynamicImageVo;
+import cn.aldd.vape.util.Utils;
 
 @Service("dynamicImageService")
 public class DynamicImageServiceImpl implements DynamicImageService {
@@ -43,9 +46,25 @@ public class DynamicImageServiceImpl implements DynamicImageService {
 	}
 
 	@Override
-	public PageInfo<DynamicImageVo> findDynamicImageList(DynamicImageVo dynamicImageVo, Integer pageNum, Integer pageSize) {
+	public List<DynamicImageVo> findDynamicImageListOderHot() {
+		return dynamicImageDao.findDynamicImageListOderHot();
+	}
+
+	@Override
+	public PageInfo<DynamicImageVo> findDynamicImageList(DynamicImageVo dynamicImageVo, Integer pageNum,
+			Integer pageSize) {
+		List<DynamicImageVo> hots = dynamicImageDao.findDynamicImageListOderHot();
+		if (!Utils.isNullList(hots)) {
+			List<String> hotIds = new ArrayList<>();
+			for (DynamicImageVo img : hots) {
+				hotIds.add(img.getId());
+			}
+			dynamicImageVo = new DynamicImageVo();
+			dynamicImageVo.setHotIds(hotIds);
+		}
 		PageHelper.startPage(pageNum, pageSize);
-		PageInfo<DynamicImageVo> result = new PageInfo<DynamicImageVo>(dynamicImageDao.findDynamicImageList(dynamicImageVo));
+		PageInfo<DynamicImageVo> result = new PageInfo<DynamicImageVo>(
+				dynamicImageDao.findDynamicImageList(dynamicImageVo));
 		if (pageNum > result.getPages()) {
 			result.setList(null);
 			result.setSize(0);

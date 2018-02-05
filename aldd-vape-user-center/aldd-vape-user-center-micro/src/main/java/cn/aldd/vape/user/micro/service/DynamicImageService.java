@@ -1,5 +1,7 @@
 package cn.aldd.vape.user.micro.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 
 import cn.aldd.vape.user.micro.domain.DynamicImage;
@@ -17,4 +19,5 @@ public interface DynamicImageService {
 
 	void deleteDynamicImageById(String id);
 
+	List<DynamicImageVo> findDynamicImageListOderHot();
 }

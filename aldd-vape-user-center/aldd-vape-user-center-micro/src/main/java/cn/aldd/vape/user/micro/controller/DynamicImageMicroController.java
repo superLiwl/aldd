@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.aldd.vape.common.DataMessage;
 import cn.aldd.vape.user.micro.domain.DynamicImage;
 import cn.aldd.vape.user.micro.service.DynamicImageService;
-import cn.aldd.vape.user.micro.vo.DynamicImageVo;
 
 @RestController
 @RequestMapping(value = "/dynamicImage/micro")
@@ -33,10 +32,16 @@ public class DynamicImageMicroController {
 		return DataMessage.createSuccessMsg(dynamicImageService.findDynamicImageById(id), "查询成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/{pageNum}/{pageSize}")
-	public DataMessage findDynamicImageList(@RequestBody DynamicImageVo dynamicImageVo, @PathVariable("pageNum") Integer pageNum,
+	@RequestMapping(method = RequestMethod.GET, value = "/{pageNum}/{pageSize}")
+	public DataMessage findDynamicImageList(@PathVariable("pageNum") Integer pageNum,
 			@PathVariable("pageSize") Integer pageSize) {
-		return DataMessage.createSuccessMsg(dynamicImageService.findDynamicImageList(dynamicImageVo, pageNum, pageSize), "查询成功", "");
+		return DataMessage.createSuccessMsg(dynamicImageService.findDynamicImageList(null, pageNum, pageSize), "查询成功",
+				"");
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/hot")
+	public DataMessage findDynamicImageListOderHot() {
+		return DataMessage.createSuccessMsg(dynamicImageService.findDynamicImageListOderHot(), "查询成功", "");
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

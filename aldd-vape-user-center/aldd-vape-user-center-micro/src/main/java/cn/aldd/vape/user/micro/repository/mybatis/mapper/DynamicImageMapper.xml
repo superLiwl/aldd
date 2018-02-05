@@ -14,15 +14,27 @@
 		<include refid="where_fragement" />
 	</select>
 	
+	<select id="findDynamicImageListOderHot" resultType="cn.aldd.vape.user.micro.vo.DynamicImageVo" >
+		SELECT
+			 record.id as id, 
+			 record.dynamic_id as dynamicId, 
+			 record.url as url, 
+			 record.type as type, 
+			 record.create_time as createTime ,
+			 (SELECT SUM(dr.reward_num) FROM dynamic_reward dr WHERE dr.dynamic_id = record.dynamic_id GROUP BY dr.dynamic_id) AS reNum 
+			FROM dynamic_image record 
+			ORDER BY reNum DESC LIMIT 0,3
+	</select>
+	
 	<!-- 查询字段公共sql -->
 	<sql id="selectAllColumns">
 		<![CDATA[
 		SELECT
-			 id as id, 
-			 dynamic_id as dynamicId, 
-			 url as url, 
-			 type as type, 
-			 create_time as createTime 
+			 record.id as id, 
+			 record.dynamic_id as dynamicId, 
+			 record.url as url, 
+			 record.type as type, 
+			 record.create_time as createTime 
 			FROM dynamic_image record
 		]]>
 	</sql>
@@ -42,7 +54,14 @@
 				<if test = "entity.type != null and entity.type != ''">
 					<![CDATA[ and record.type  = #{entity.type} ]]>
 				</if>
+				<if test = "entity.hotIds != null and entity.hotIds.size > 0">
+					and record.id not in
+					<foreach item="hotId" index="index" collection="entity.hotIds" open="(" separator="," close=")">
+			            #{hotId}  
+			         </foreach>
+				</if>
 		</if>
+		ORDER BY record.create_time DESC
 	</sql>
 
 </mapper>

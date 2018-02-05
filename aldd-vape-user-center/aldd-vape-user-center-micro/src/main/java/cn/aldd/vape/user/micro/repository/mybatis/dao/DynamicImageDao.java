@@ -14,4 +14,6 @@ public interface DynamicImageDao {
 
 	List<DynamicImageVo> findDynamicImageList(@Param("entity") DynamicImageVo dynamicImageVo);
 
+	List<DynamicImageVo> findDynamicImageListOderHot();
+
 }
