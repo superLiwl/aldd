@@ -1,4 +1,4 @@
-package cn.aldd.vape.user.micro.constants;
+package cn.aldd.vape.enums;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.aldd.vape.constants.CommonConstants;
 import cn.aldd.vape.user.micro.domain.CarouselFigure;
 import cn.aldd.vape.user.micro.repository.jpa.CarouselFigureRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.CarouselFigureDao;
 import cn.aldd.vape.user.micro.service.CarouselFigureService;
 import cn.aldd.vape.user.micro.vo.CarouselFigureVo;
+import cn.aldd.vape.util.Utils;
 
 @Service("carouselFigureService")
 public class CarouselFigureServiceImpl implements CarouselFigureService {
@@ -39,17 +41,26 @@ public class CarouselFigureServiceImpl implements CarouselFigureService {
 
 	@Override
 	public CarouselFigureVo findCarouselFigureById(String id) {
-		return carouselFigureDao.findCarouselFigureById(id);
+		CarouselFigureVo vo = carouselFigureDao.findCarouselFigureById(id);
+		vo.setUrl(CommonConstants.IMG_URL + vo.getUrl());
+		return vo;
 	}
 
 	@Override
-	public PageInfo<CarouselFigureVo> findCarouselFigureList(CarouselFigureVo carouselFigureVo, Integer pageNum, Integer pageSize) {
+	public PageInfo<CarouselFigureVo> findCarouselFigureList(CarouselFigureVo carouselFigureVo, Integer pageNum,
+			Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		PageInfo<CarouselFigureVo> result = new PageInfo<CarouselFigureVo>(carouselFigureDao.findCarouselFigureList(carouselFigureVo));
+		PageInfo<CarouselFigureVo> result = new PageInfo<CarouselFigureVo>(
+				carouselFigureDao.findCarouselFigureList(carouselFigureVo));
 		if (pageNum > result.getPages()) {
 			result.setList(null);
 			result.setSize(0);
 			result.setPageNum(pageNum);
+		}
+		if (!Utils.isNullList(result.getList())) {
+			for (CarouselFigureVo vo : result.getList()) {
+				vo.setUrl(CommonConstants.IMG_URL + vo.getUrl());
+			}
 		}
 		return result;
 	}

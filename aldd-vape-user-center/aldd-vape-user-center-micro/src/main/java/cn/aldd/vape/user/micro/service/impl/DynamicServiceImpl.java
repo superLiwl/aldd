@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import cn.aldd.vape.user.micro.constants.DynamicTypeEnum;
+import cn.aldd.vape.enums.DynamicTypeEnum;
 import cn.aldd.vape.user.micro.domain.Dynamic;
 import cn.aldd.vape.user.micro.domain.DynamicImage;
 import cn.aldd.vape.user.micro.domain.UserRewardCount;
