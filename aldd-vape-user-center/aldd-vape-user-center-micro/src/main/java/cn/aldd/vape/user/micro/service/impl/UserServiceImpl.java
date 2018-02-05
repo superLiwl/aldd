@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 		user.setCreateTime(oldUSser.getCreateTime());// 创建时间不修改
 		user.setLoginName(oldUSser.getLoginName());// 登录名不修改
 		user.setPassword(oldUSser.getPassword());// 密码不修改
+		user.setOpenId(oldUSser.getOpenId());// 微信不修改
 		user.setUpdateTime(new Date());
 		user = userRepository.save(user);
 		return user;

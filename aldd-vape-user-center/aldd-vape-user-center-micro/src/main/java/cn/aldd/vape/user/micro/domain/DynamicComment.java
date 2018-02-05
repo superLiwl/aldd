@@ -27,17 +27,22 @@ public class DynamicComment implements Serializable {
 	/**
 	 * 评论id
 	 */
-	@Column(nullable = true,length = 36, name = "comment_id")
+	@Column(nullable = true, length = 36, name = "comment_id")
 	private String commentId;
 	/**
 	 * 动态id
 	 */
-	@Column(nullable = true,length = 36, name = "dynamic_id")
+	@Column(nullable = true, length = 36, name = "dynamic_id")
 	private String dynamicId;
+	/**
+	 * 评论内容
+	 */
+	@Column(nullable = true, length = 255, name = "comment")
+	private String comment;
 	/**
 	 * 创建人
 	 */
-	@Column(nullable = true,length = 36, name = "create_user_id")
+	@Column(nullable = true, length = 36, name = "create_user_id")
 	private String createUserId;
 	/**
 	 * 创建时间
@@ -45,40 +50,53 @@ public class DynamicComment implements Serializable {
 	@Column(nullable = true, name = "create_time")
 	private java.util.Date createTime;
 
-// setter and getter
-	public String getId(){
+	// setter and getter
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(String id){
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	public String getCommentId(){
+
+	public String getCommentId() {
 		return commentId;
 	}
-	
-	public void setCommentId(String commentId){
+
+	public void setCommentId(String commentId) {
 		this.commentId = commentId;
 	}
-	public String getDynamicId(){
+
+	public String getDynamicId() {
 		return dynamicId;
 	}
-	
-	public void setDynamicId(String dynamicId){
+
+	public void setDynamicId(String dynamicId) {
 		this.dynamicId = dynamicId;
 	}
-	public String getCreateUserId(){
+
+	public String getCreateUserId() {
 		return createUserId;
 	}
-	
-	public void setCreateUserId(String createUserId){
+
+	public void setCreateUserId(String createUserId) {
 		this.createUserId = createUserId;
 	}
-	public java.util.Date getCreateTime(){
+
+	public java.util.Date getCreateTime() {
 		return createTime;
 	}
-	
-	public void setCreateTime(java.util.Date createTime){
+
+	public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
 	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 }

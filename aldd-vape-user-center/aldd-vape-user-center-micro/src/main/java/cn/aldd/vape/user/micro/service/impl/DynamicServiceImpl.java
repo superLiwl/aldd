@@ -20,6 +20,7 @@ import cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicDao;
 import cn.aldd.vape.user.micro.service.DynamicImageService;
 import cn.aldd.vape.user.micro.service.DynamicService;
 import cn.aldd.vape.user.micro.service.UserRewardCountService;
+import cn.aldd.vape.user.micro.vo.DynamicCommentVo;
 import cn.aldd.vape.user.micro.vo.DynamicFabulousVo;
 import cn.aldd.vape.user.micro.vo.DynamicInfosVo;
 import cn.aldd.vape.user.micro.vo.DynamicRewardVo;
@@ -40,10 +41,10 @@ public class DynamicServiceImpl implements DynamicService {
 
 	@Override
 	public Dynamic addDynamic(Dynamic dynamic) {
-		//判断今天发表几条动态//只有前五条动态获取打赏资格
+		// 判断今天发表几条动态//只有前五条动态获取打赏资格
 		int count = dynamicDao.findTodayCountDynamicByUserId(dynamic.getCreateUserId());
-		if(count < 5){
-			//增加打赏次数================================
+		if (count < 5) {
+			// 增加打赏次数================================
 			UserRewardCount userRewardCount = new UserRewardCount();
 			userRewardCount.setUserId(dynamic.getCreateUserId());
 			userRewardCount.setHaveRewardCount("2");
@@ -97,15 +98,16 @@ public class DynamicServiceImpl implements DynamicService {
 		List<DynamicInfosVo> infoList;
 		List<DynamicFabulousVo> fabulous = new ArrayList<>();
 		List<DynamicRewardVo> rewards = new ArrayList<>();
+		List<DynamicCommentVo> comments = new ArrayList<>();
 		DynamicFabulousVo fabulou;
 		DynamicRewardVo reward;
+		DynamicCommentVo comment;
 		/**
 		 * 查询评论 查询点赞 查询打赏
 		 */
 		infoList = dynamicDao.findDynamicInfosById(dy.getId());
 		if (!Utils.isNullList(infoList)) {
 			for (DynamicInfosVo info : infoList) {
-				System.out.println(info.getType() + "-------" + info.getBusinessId());
 				if (DynamicTypeEnum.FABULOUS.getKey().equals(info.getType())) {
 					fabulou = new DynamicFabulousVo();
 					fabulou.setId(info.getBusinessId());
@@ -115,7 +117,16 @@ public class DynamicServiceImpl implements DynamicService {
 					fabulou.setNickName(info.getNickName());
 					fabulous.add(fabulou);
 				} else if (DynamicTypeEnum.COMMENT.getKey().equals(info.getType())) {
-
+					comment = new DynamicCommentVo();
+					comment.setId(info.getBusinessId());
+					comment.setDynamicId(info.getDynamicId());
+					comment.setCreateUserId(info.getCreateUserId());
+					comment.setCreateTime(info.getCreateTime());
+					comment.setComment(info.getBusinessData());
+					comment.setNickName(info.getNickName());
+					comment.setCreateDyUser(info.getCreateDyUser());
+					comment.setCreateDyUserImg(info.getCreateDyUserImg());
+					comments.add(comment);
 				} else if (DynamicTypeEnum.REWARD.getKey().equals(info.getType())) {
 					reward = new DynamicRewardVo();
 					reward.setId(info.getBusinessId());
@@ -129,6 +140,7 @@ public class DynamicServiceImpl implements DynamicService {
 			}
 			dy.setRewards(rewards);
 			dy.setFabulous(fabulous);
+			dy.setComments(comments);
 		}
 	}
 

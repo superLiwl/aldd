@@ -10,14 +10,20 @@
 	
 	<select id="findDynamicInfosById" resultType="cn.aldd.vape.user.micro.vo.DynamicInfosVo" parameterType="java.lang.String">
 	SELECT d.*,u.nick_name AS nickName ,u.head_portrait_img AS headPortraitImg FROM (	
-			(SELECT r.id as businessId,r.dynamic_id AS dynamicId ,r.create_user_id AS createUserId ,r.create_time AS createTime,r.reward_num AS businessData ,'reward' as type 
+			(SELECT r.id as businessId,r.dynamic_id AS dynamicId ,r.create_user_id AS createUserId ,r.create_time AS createTime,r.reward_num AS businessData ,
+				'' as commentId , '' as createDyUser , '' as createDyUserImg , 'reward' as type 
 				FROM dynamic_reward r WHERE r.dynamic_id = #{id} ORDER BY r.create_time ASC)
 		UNION 
-			(SELECT f.id as businessId,f.dynamic_id AS dynamicId ,f.create_user_id AS createUserId ,f.create_time AS createTime,'' AS businessData , 'fabulous' as type 
+			(SELECT f.id as businessId,f.dynamic_id AS dynamicId ,f.create_user_id AS createUserId ,f.create_time AS createTime,'' AS businessData , 
+				'' as commentId , '' as createDyUser , '' as createDyUserImg , 'fabulous' as type 
 				FROM dynamic_fabulous f WHERE f.dynamic_id = #{id} ORDER BY f.create_time ASC)
 		UNION 
-			(SELECT c.id,c.dynamic_id AS dynamicId ,c.create_user_id AS createUserId ,c.create_time AS createTime ,c.comment_id AS businessData , 'comment' as type 
-				FROM dynamic_comment c WHERE c.dynamic_id = #{id} ORDER BY c.create_time DESC)
+			(SELECT c.id as businessId,c.dynamic_id AS dynamicId ,c.create_user_id AS createUserId ,c.create_time AS createTime,c.comment AS businessData ,
+			c.comment_id AS commentId,uuu.nick_name AS createDyUser , uuu.head_portrait_img AS createDyUserImg , 'comment' as type 
+				FROM dynamic_comment c 
+				LEFT JOIN dynamic ddd ON c.dynamic_id = ddd.id 
+				LEFT JOIN user uuu ON uuu.id = ddd.create_user_id 
+				WHERE c.dynamic_id = #{id} ORDER BY c.create_time DESC)
 	) AS d LEFT JOIN user u on u.id = d.createUserId
 	</select>
 	

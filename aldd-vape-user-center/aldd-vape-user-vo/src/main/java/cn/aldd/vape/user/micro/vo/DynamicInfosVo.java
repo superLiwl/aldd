@@ -10,10 +10,8 @@ public class DynamicInfosVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "昵称")
-	private String nickName;
-	@ApiModelProperty(value = "头像")
-	private String headPortraitImg;
+	@ApiModelProperty(value = "评论")
+	private String commentId;
 	@ApiModelProperty(value = "业务id")
 	private String businessId;
 	@ApiModelProperty(value = "业务数据")
@@ -22,8 +20,16 @@ public class DynamicInfosVo implements Serializable {
 	private String dynamicId;
 	@ApiModelProperty(value = "业务类型")
 	private String type;
-	@ApiModelProperty(value = "创建人id")
+	@ApiModelProperty(value = "业务创建人昵称")
+	private String nickName;
+	@ApiModelProperty(value = "业务创建人头像")
+	private String headPortraitImg;
+	@ApiModelProperty(value = "业务创建人id")
 	private String createUserId;
+	@ApiModelProperty(value = "动态发表人id")
+	private String createDyUser;
+	@ApiModelProperty(value = "动态发表人头像")
+	private String createDyUserImg;
 	@ApiModelProperty(value = "创建时间")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private java.util.Date createTime;
@@ -90,6 +96,30 @@ public class DynamicInfosVo implements Serializable {
 
 	public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(String commentId) {
+		this.commentId = commentId;
+	}
+
+	public String getCreateDyUser() {
+		return createDyUser;
+	}
+
+	public void setCreateDyUser(String createDyUser) {
+		this.createDyUser = createDyUser;
+	}
+
+	public String getCreateDyUserImg() {
+		return createDyUserImg;
+	}
+
+	public void setCreateDyUserImg(String createDyUserImg) {
+		this.createDyUserImg = createDyUserImg;
 	}
 
 }

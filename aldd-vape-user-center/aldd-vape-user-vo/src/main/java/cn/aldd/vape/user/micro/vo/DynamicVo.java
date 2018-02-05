@@ -28,6 +28,8 @@ public class DynamicVo implements Serializable {
 	private List<DynamicFabulousVo> fabulous;
 	@ApiModelProperty(value = "动态打赏")
 	private List<DynamicRewardVo> rewards;
+	@ApiModelProperty(value = "动态评论")
+	private List<DynamicCommentVo> comments;
 
 	// setter and getter
 	public String getId() {
@@ -92,6 +94,14 @@ public class DynamicVo implements Serializable {
 
 	public void setRewards(List<DynamicRewardVo> rewards) {
 		this.rewards = rewards;
+	}
+
+	public List<DynamicCommentVo> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<DynamicCommentVo> comments) {
+		this.comments = comments;
 	}
 
 }
