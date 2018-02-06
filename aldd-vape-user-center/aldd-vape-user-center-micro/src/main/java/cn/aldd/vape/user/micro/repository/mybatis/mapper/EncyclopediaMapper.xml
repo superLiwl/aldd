@@ -66,6 +66,12 @@
 			<if test = "entity.content != null and entity.content != ''">
 				<![CDATA[ and record.content  = #{entity.content} ]]>
 			</if>
+			<if test = "entity.keyWord != null and entity.keyWord != ''">
+				<![CDATA[ and (record.content LIKE CONCAT('%',#{entity.keyWord},'%')  
+						  		or record.author LIKE CONCAT('%',#{entity.keyWord},'%') 
+						  		or record.title LIKE CONCAT('%',#{entity.keyWord},'%')   
+						  	)]]>
+			</if>
 		</if>
 		order by record.create_time desc
 	</sql>

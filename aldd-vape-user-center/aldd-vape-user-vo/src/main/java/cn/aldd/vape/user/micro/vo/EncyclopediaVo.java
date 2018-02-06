@@ -24,6 +24,8 @@ public class EncyclopediaVo implements Serializable {
 	private java.util.Date createTime;
 	@ApiModelProperty(value = "图片")
 	private List<EncyclopediaImageVo> images;
+	@ApiModelProperty(value = "关键字")
+	private String keyWord;
 
 	// setter and getter
 	public String getId() {
@@ -72,6 +74,14 @@ public class EncyclopediaVo implements Serializable {
 
 	public void setImages(List<EncyclopediaImageVo> images) {
 		this.images = images;
+	}
+
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
 	}
 
 }

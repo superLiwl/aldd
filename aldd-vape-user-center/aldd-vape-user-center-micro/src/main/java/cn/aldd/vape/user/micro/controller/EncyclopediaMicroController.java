@@ -39,7 +39,7 @@ public class EncyclopediaMicroController {
 		return DataMessage.createSuccessMsg(encyclopediaService.findEncyclopediaList(encyclopediaVo, pageNum, pageSize), "查询成功", "");
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/delete/{id}")
 	public DataMessage deleteEncyclopediaById(@PathVariable("id") String id) {
 		encyclopediaService.deleteEncyclopediaById(id);
 		return DataMessage.createSuccessMsg(true, "删除成功", "");
