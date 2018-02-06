@@ -14,16 +14,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-/**
- * All rights Reserved, Designed By 翼虎能源
- * Copyright:    Copyright(C) 2015-2017
- * Company   北京翼虎能源科技有限公司
- *
- * @author 李伟龙
- * @version 1.0
- * @date 2017年5月23日 下午1:52:21
- * @Description json工具类
- */
 public class JSONUtil {
 
 	private static Gson gson = null;

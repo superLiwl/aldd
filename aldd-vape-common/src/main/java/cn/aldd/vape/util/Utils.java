@@ -1,5 +1,6 @@
 package cn.aldd.vape.util;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
@@ -72,4 +73,21 @@ public class Utils {
         BigDecimal b2 = new BigDecimal(v2);  
         return b1.add(b2).toString();  
     }  
+	
+	/**
+	 * 转utf8
+	 */
+	public static String strToUTF(String str) {
+		return str;
+//		if (null == str || "".equals(str)) {
+//			return "";
+//		}
+//		try {
+//			str = new String(str.getBytes(), "UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		return str;
+	}
+
 }
