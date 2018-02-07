@@ -1,6 +1,7 @@
 package cn.aldd.vape.user.micro.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,9 @@ import cn.aldd.vape.user.micro.domain.User;
 import cn.aldd.vape.user.micro.repository.jpa.UserRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao;
 import cn.aldd.vape.user.micro.service.UserService;
+import cn.aldd.vape.user.micro.vo.UserRankingVo;
 import cn.aldd.vape.user.micro.vo.UserVo;
+import cn.aldd.vape.util.DateUtils;
 import cn.aldd.vape.util.MD5;
 
 @Service("userService")
@@ -60,6 +63,26 @@ public class UserServiceImpl implements UserService {
 			result.setPageNum(pageNum);
 		}
 		return result;
+	}
+
+	public List<UserRankingVo> findUserRankingList(Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		//判断当前时间是否大于6点
+		Date now = new Date();
+		String toDaySix = DateUtils.dateFormat(now) + " 06:00:00";
+		
+		
+		//计算时间
+		String start = "";
+		String end = "";
+
+		PageInfo<UserRankingVo> result = new PageInfo<UserRankingVo>(userDao.findUserRankingList(start, end));
+		if (pageNum > result.getPages()) {
+			result.setList(null);
+			result.setSize(0);
+			result.setPageNum(pageNum);
+		}
+		return null;
 	}
 
 	@Override

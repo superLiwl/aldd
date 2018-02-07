@@ -14,4 +14,9 @@ public class CommonConstants {
 	 * 图片地址
 	 */
 	public static final String IMG_URL = "http://47.95.2.132:9999/images/";
+	
+	/**
+	 * 年月日时分秒
+	 */
+	public static final String YYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
 }
