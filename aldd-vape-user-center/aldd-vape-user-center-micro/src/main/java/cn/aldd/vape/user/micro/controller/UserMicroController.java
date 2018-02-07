@@ -39,16 +39,22 @@ public class UserMicroController {
 		return DataMessage.createSuccessMsg(userService.findUserList(userVo, pageNum, pageSize), "查询成功", "");
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/{userId}/{pageNum}/{pageSize}")
+	public DataMessage findUserRankingList(@PathVariable("userId") String userId,
+			@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
+		return DataMessage.createSuccessMsg(userService.findUserRankingList(pageNum, pageSize), "查询成功", "");
+	}
+
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
 	public DataMessage deleteUserById(@PathVariable("id") String id) {
 		userService.deleteUserById(id);
 		return DataMessage.createSuccessMsg(true, "删除成功", "");
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/{loginName}/{password}")
-	public DataMessage login(@PathVariable("loginName") String loginName,@PathVariable("password") String password) {
+	public DataMessage login(@PathVariable("loginName") String loginName, @PathVariable("password") String password) {
 		UserVo user = userService.login(loginName, password);
-		if(null == user){
+		if (null == user) {
 			return DataMessage.createSuccessMsg(user, "用户名或密码错误", "");
 		}
 		return DataMessage.createSuccessMsg(user, "登陆成功", "");

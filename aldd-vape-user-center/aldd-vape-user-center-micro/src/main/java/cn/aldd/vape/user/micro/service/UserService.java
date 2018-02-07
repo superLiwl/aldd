@@ -3,6 +3,7 @@ package cn.aldd.vape.user.micro.service;
 import com.github.pagehelper.PageInfo;
 
 import cn.aldd.vape.user.micro.domain.User;
+import cn.aldd.vape.user.micro.vo.UserRankingVo;
 import cn.aldd.vape.user.micro.vo.UserVo;
 
 public interface UserService {
@@ -18,5 +19,7 @@ public interface UserService {
 	void deleteUserById(String id);
 
 	UserVo login(String loginName, String password);
+
+	PageInfo<UserRankingVo> findUserRankingList(Integer pageNum, Integer pageSize);
 
 }
