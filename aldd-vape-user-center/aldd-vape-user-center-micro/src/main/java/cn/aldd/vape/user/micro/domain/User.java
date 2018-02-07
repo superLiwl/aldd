@@ -35,6 +35,16 @@ public class User implements Serializable {
 	@Column(nullable = true,length = 255, name = "address")
 	private String address;
 	/**
+	 * 经度
+	 */
+	@Column(nullable = true,length = 255, name = "longitude")
+	private String longitude;
+	/**
+	 * 纬度
+	 */
+	@Column(nullable = true,length = 255, name = "latitude")
+	private String latitude;
+	/**
 	 * 年龄
 	 */
 	@Column(nullable = true,length = 255, name = "age")

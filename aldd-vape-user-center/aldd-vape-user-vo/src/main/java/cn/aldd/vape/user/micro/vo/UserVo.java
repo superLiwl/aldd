@@ -9,13 +9,17 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@ApiModelProperty(value = "主键id")
 	private String id;
 	@ApiModelProperty(value = "wx的openId")
 	private String openId;
 	@ApiModelProperty(value = "地址")
 	private String address;
+	@ApiModelProperty(value = "经度")
+	private String longitude;
+	@ApiModelProperty(value = "纬度")
+	private String latitude;
 	@ApiModelProperty(value = "年龄")
 	private String age;
 	@ApiModelProperty(value = "编号")
@@ -45,118 +49,133 @@ public class UserVo implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private java.util.Date updateTime;
 
-// setter and getter
-	public String getId(){
+	// setter and getter
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(String id){
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	public String getOpenId(){
+
+	public String getOpenId() {
 		return openId;
 	}
-	
-	public void setOpenId(String openId){
+
+	public void setOpenId(String openId) {
 		this.openId = openId;
 	}
-	public String getAddress(){
+
+	public String getAddress() {
 		return address;
 	}
-	
-	public void setAddress(String address){
+
+	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getAge(){
+
+	public String getAge() {
 		return age;
 	}
-	
-	public void setAge(String age){
+
+	public void setAge(String age) {
 		this.age = age;
 	}
-	public String getCode(){
+
+	public String getCode() {
 		return code;
 	}
-	
-	public void setCode(String code){
+
+	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getGender(){
+
+	public String getGender() {
 		return gender;
 	}
-	
-	public void setGender(String gender){
+
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getHeadPortraitImg(){
+
+	public String getHeadPortraitImg() {
 		return headPortraitImg;
 	}
-	
-	public void setHeadPortraitImg(String headPortraitImg){
+
+	public void setHeadPortraitImg(String headPortraitImg) {
 		this.headPortraitImg = headPortraitImg;
 	}
-	public String getHobby(){
+
+	public String getHobby() {
 		return hobby;
 	}
-	
-	public void setHobby(String hobby){
+
+	public void setHobby(String hobby) {
 		this.hobby = hobby;
 	}
-	public String getStatus(){
+
+	public String getStatus() {
 		return status;
 	}
-	
-	public void setStatus(String status){
+
+	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getLoginName(){
+
+	public String getLoginName() {
 		return loginName;
 	}
-	
-	public void setLoginName(String loginName){
+
+	public void setLoginName(String loginName) {
 		this.loginName = loginName;
 	}
-	public String getPassword(){
+
+	public String getPassword() {
 		return password;
 	}
-	
-	public void setPassword(String password){
+
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getNickName(){
+
+	public String getNickName() {
 		return nickName;
 	}
-	
-	public void setNickName(String nickName){
+
+	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	public String getRation(){
+
+	public String getRation() {
 		return ration;
 	}
-	
-	public void setRation(String ration){
+
+	public void setRation(String ration) {
 		this.ration = ration;
 	}
-	public String getSkill(){
+
+	public String getSkill() {
 		return skill;
 	}
-	
-	public void setSkill(String skill){
+
+	public void setSkill(String skill) {
 		this.skill = skill;
 	}
-	public java.util.Date getCreateTime(){
+
+	public java.util.Date getCreateTime() {
 		return createTime;
 	}
-	
-	public void setCreateTime(java.util.Date createTime){
+
+	public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
 	}
-	public java.util.Date getUpdateTime(){
+
+	public java.util.Date getUpdateTime() {
 		return updateTime;
 	}
-	
-	public void setUpdateTime(java.util.Date updateTime){
+
+	public void setUpdateTime(java.util.Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	
+
 }

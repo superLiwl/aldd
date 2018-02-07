@@ -49,15 +49,12 @@ public class HttpUtils {
 		}
 		DataMessage data = JSONUtil.toBean(result, DataMessage.class);
 		if (data.isSuccess()) {
-			return Utils.strToUTF(JSONUtil.toJson(data.getData()));
+			return JSONUtil.toJson(data.getData());
 		}
 		return null;
 	}
 
 	public static String sendPost(String url, String param) {
-		System.out.println(param);
-		param = Utils.strToGB2312(param);
-		System.out.println("--------------"+param);
 		PrintWriter out = null;
 		BufferedReader in = null;
 		String result = "";
@@ -105,7 +102,7 @@ public class HttpUtils {
 		}
 		DataMessage data = JSONUtil.toBean(result, DataMessage.class);
 		if (data.isSuccess()) {
-			return Utils.strToUTF(JSONUtil.toJson(data.getData()));
+			return JSONUtil.toJson(data.getData());
 		}
 		return null;
 	}

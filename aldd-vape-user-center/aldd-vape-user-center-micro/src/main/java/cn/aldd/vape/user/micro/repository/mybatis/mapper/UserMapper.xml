@@ -25,7 +25,9 @@
 		SELECT
 			 id as id, 
 			 open_id as openId, 
-			 address as address, 
+			 address as address,  
+			 longitude as longitude, 
+			 latitude as latitude, 
 			 age as age, 
 			 code as code, 
 			 gender as gender, 
