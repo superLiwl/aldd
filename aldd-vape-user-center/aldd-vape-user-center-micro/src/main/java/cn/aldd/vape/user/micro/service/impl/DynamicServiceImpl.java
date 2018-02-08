@@ -129,6 +129,7 @@ public class DynamicServiceImpl implements DynamicService {
 				} else if (DynamicTypeEnum.COMMENT.getKey().equals(info.getType())) {
 					comment = new DynamicCommentVo();
 					comment.setId(info.getBusinessId());
+					comment.setCommentId(info.getCommentId());
 					comment.setDynamicId(info.getDynamicId());
 					comment.setCreateUserId(info.getCreateUserId());
 					comment.setCreateTime(info.getCreateTime());
