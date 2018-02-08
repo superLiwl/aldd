@@ -42,7 +42,7 @@ public class UserMicroController {
 	@RequestMapping(method = RequestMethod.GET, value = "/{userId}/{pageNum}/{pageSize}")
 	public DataMessage findUserRankingList(@PathVariable("userId") String userId,
 			@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
-		return DataMessage.createSuccessMsg(userService.findUserRankingList(pageNum, pageSize), "查询成功", "");
+		return DataMessage.createSuccessMsg(userService.findRanks(userId, pageNum, pageSize), "查询成功", "");
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

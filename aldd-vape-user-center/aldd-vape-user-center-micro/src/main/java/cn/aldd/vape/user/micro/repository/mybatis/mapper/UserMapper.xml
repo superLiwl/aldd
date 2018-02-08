@@ -9,14 +9,31 @@
 		where record.login_name = #{loginName} and record.password = #{password}
 	</select>
 	
+	<select id="findMyRanking" resultType="cn.aldd.vape.user.micro.vo.UserRankingVo">
+		<![CDATA[
+			SELECT ccc.* FROM ( 
+			SELECT @rowno:=@rowno + 1 AS rowno,aaa.* FROM ( 
+			SELECT  u.id as userId,u.nick_name AS nickName,u.head_portrait_img  AS headPortraitImg, 
+			( SELECT SUM((SELECT SUM(dr.reward_num)FROM dynamic_reward dr WHERE dr.dynamic_id=d.id  
+			and dr.create_time > #{start} AND dr.create_time< #{end} 
+			GROUP BY dr.dynamic_id)) 
+			FROM dynamic d WHERE d.create_user_id = u.id GROUP BY d.create_user_id )as rewardCount 
+			FROM user u ORDER BY rewardCount DESC 
+			) as aaa,(SELECT @rowno:=0) bbb 
+			) ccc WHERE ccc.userId = #{userId}
+		]]>
+	</select>
+	
 	<select id="findUserRankingList" resultType="cn.aldd.vape.user.micro.vo.UserRankingVo">
 		<![CDATA[
+			SELECT @rowno:=@rowno + 1 AS rowno,aaa.* FROM ( 
 			SELECT  u.id as userId,u.nick_name AS nickName,u.head_portrait_img  AS headPortraitImg, 
 			( SELECT SUM((SELECT SUM(dr.reward_num)FROM dynamic_reward dr WHERE dr.dynamic_id=d.id  
 			and dr.create_time > #{start} AND dr.create_time< #{end}
 			GROUP BY dr.dynamic_id)) 
 			FROM dynamic d WHERE d.create_user_id = u.id GROUP BY d.create_user_id )as rewardCount 
 			FROM user u ORDER BY rewardCount DESC 
+			) as aaa,(SELECT @rowno:=0) bbb
 		]]>
 	</select>
 	

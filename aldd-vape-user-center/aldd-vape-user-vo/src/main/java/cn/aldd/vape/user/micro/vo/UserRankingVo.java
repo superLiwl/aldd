@@ -10,6 +10,8 @@ public class UserRankingVo implements Serializable {
 
 	@ApiModelProperty(value = "用户id")
 	private String userId;
+	@ApiModelProperty(value = "排名")
+	private String rowno;
 	@ApiModelProperty(value = "昵称")
 	private String nickName;
 	@ApiModelProperty(value = "头像")
@@ -47,6 +49,14 @@ public class UserRankingVo implements Serializable {
 
 	public void setRewardCount(String rewardCount) {
 		this.rewardCount = rewardCount;
+	}
+
+	public String getRowno() {
+		return rowno;
+	}
+
+	public void setRowno(String rowno) {
+		this.rowno = rowno;
 	}
 
 }

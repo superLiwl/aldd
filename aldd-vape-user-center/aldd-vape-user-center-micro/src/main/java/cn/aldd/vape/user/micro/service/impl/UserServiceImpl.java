@@ -13,10 +13,12 @@ import cn.aldd.vape.user.micro.domain.User;
 import cn.aldd.vape.user.micro.repository.jpa.UserRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao;
 import cn.aldd.vape.user.micro.service.UserService;
+import cn.aldd.vape.user.micro.vo.UserRankingListVo;
 import cn.aldd.vape.user.micro.vo.UserRankingVo;
 import cn.aldd.vape.user.micro.vo.UserVo;
 import cn.aldd.vape.util.DateUtils;
 import cn.aldd.vape.util.MD5;
+import cn.aldd.vape.util.Utils;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -74,6 +76,16 @@ public class UserServiceImpl implements UserService {
 		}
 		return result;
 	}
+	
+	@Override
+	public UserRankingListVo findRanks(String userId,Integer pageNum, Integer pageSize){
+		PageInfo<UserRankingVo> ranks = findUserRankingList(pageNum, pageSize);
+		UserRankingVo myRank= findMyRanking(userId, pageNum, pageSize);
+		UserRankingListVo result = new UserRankingListVo();
+		result.setUserRanks(ranks.getList());
+		result.setMyRanks(myRank);
+		return result;
+	}
 
 	@Override
 	public PageInfo<UserRankingVo> findUserRankingList(Integer pageNum, Integer pageSize) {
@@ -87,7 +99,24 @@ public class UserServiceImpl implements UserService {
 			result.setSize(0);
 			result.setPageNum(pageNum);
 		}
+		if(!Utils.isNullList(result.getList())){
+			for(UserRankingVo vo : result.getList()){
+				if (!vo.getHeadPortraitImg().contains("http")) {
+					vo.setHeadPortraitImg(CommonConstants.IMG_URL + vo.getHeadPortraitImg());
+				}
+			}
+		}
 		return result;
+	}
+
+	@Override
+	public UserRankingVo findMyRanking(String userId, Integer pageNum, Integer pageSize) {
+		String[] dateArry = DateUtils.getStartAndEndTime();
+		UserRankingVo vo = userDao.findMyRanking(userId, dateArry[0], dateArry[1]);
+		if (null!=vo && !vo.getHeadPortraitImg().contains("http")) {
+			vo.setHeadPortraitImg(CommonConstants.IMG_URL + vo.getHeadPortraitImg());
+		}
+		return vo;
 	}
 
 	@Override

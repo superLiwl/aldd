@@ -17,5 +17,7 @@ public interface UserDao {
 
 	List<UserRankingVo> findUserRankingList(@Param("start") String start, @Param("end") String end);
 
+	UserRankingVo findMyRanking(@Param("userId") String userId, @Param("start") String start, @Param("end") String end);
+
 	UserVo login(@Param("loginName") String loginName, @Param("password") String password);
 }

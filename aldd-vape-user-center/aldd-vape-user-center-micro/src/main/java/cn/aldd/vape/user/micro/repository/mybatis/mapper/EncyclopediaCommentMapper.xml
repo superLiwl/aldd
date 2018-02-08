@@ -20,6 +20,7 @@
 		SELECT
 			 id as id, 
 			 comment_id as commentId, 
+			 comment as comment, 
 			 encyclopedia_id as encyclopediaId, 
 			 create_user_id as createUserId, 
 			 create_time as createTime 
