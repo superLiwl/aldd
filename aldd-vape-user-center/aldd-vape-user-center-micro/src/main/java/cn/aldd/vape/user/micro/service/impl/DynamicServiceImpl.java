@@ -89,14 +89,6 @@ public class DynamicServiceImpl implements DynamicService {
 		}
 		if (!Utils.isNullList(result.getList())) {
 			for (DynamicVo dy : result.getList()) {
-				if (!dy.getHeadPortraitImg().contains("http")) {
-					dy.setHeadPortraitImg(CommonConstants.IMG_URL + dy.getHeadPortraitImg());
-				}
-				if (!Utils.isNullList(dy.getImages())) {
-					for (DynamicImageVo img : dy.getImages()) {
-						img.setUrl(CommonConstants.IMG_URL + img.getUrl());
-					}
-				}
 				this.getDynamicInfos(dy);
 			}
 		}
@@ -105,6 +97,14 @@ public class DynamicServiceImpl implements DynamicService {
 	}
 
 	private void getDynamicInfos(DynamicVo dy) {
+		if (null!= dy.getHeadPortraitImg()&& !dy.getHeadPortraitImg().contains("http")) {
+			dy.setHeadPortraitImg(CommonConstants.IMG_URL + dy.getHeadPortraitImg());
+		}
+		if (!Utils.isNullList(dy.getImages())) {
+			for (DynamicImageVo img : dy.getImages()) {
+				img.setUrl(CommonConstants.IMG_URL + img.getUrl());
+			}
+		}
 		List<DynamicInfosVo> infoList;
 		List<DynamicFabulousVo> fabulous = new ArrayList<>();
 		List<DynamicRewardVo> rewards = new ArrayList<>();
