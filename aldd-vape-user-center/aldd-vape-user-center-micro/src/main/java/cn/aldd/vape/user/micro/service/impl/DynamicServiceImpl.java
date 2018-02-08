@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.aldd.vape.constants.CommonConstants;
 import cn.aldd.vape.enums.DynamicTypeEnum;
 import cn.aldd.vape.user.micro.domain.Dynamic;
 import cn.aldd.vape.user.micro.domain.DynamicImage;
@@ -22,6 +23,7 @@ import cn.aldd.vape.user.micro.service.DynamicService;
 import cn.aldd.vape.user.micro.service.UserRewardCountService;
 import cn.aldd.vape.user.micro.vo.DynamicCommentVo;
 import cn.aldd.vape.user.micro.vo.DynamicFabulousVo;
+import cn.aldd.vape.user.micro.vo.DynamicImageVo;
 import cn.aldd.vape.user.micro.vo.DynamicInfosVo;
 import cn.aldd.vape.user.micro.vo.DynamicRewardVo;
 import cn.aldd.vape.user.micro.vo.DynamicVo;
@@ -87,6 +89,14 @@ public class DynamicServiceImpl implements DynamicService {
 		}
 		if (!Utils.isNullList(result.getList())) {
 			for (DynamicVo dy : result.getList()) {
+				if (!dy.getHeadPortraitImg().contains("http")) {
+					dy.setHeadPortraitImg(CommonConstants.IMG_URL + dy.getHeadPortraitImg());
+				}
+				if (!Utils.isNullList(dy.getImages())) {
+					for (DynamicImageVo img : dy.getImages()) {
+						img.setUrl(CommonConstants.IMG_URL + img.getUrl());
+					}
+				}
 				this.getDynamicInfos(dy);
 			}
 		}

@@ -26,4 +26,6 @@ public interface UserService {
 	UserRankingVo findMyRanking(String userId, Integer pageNum, Integer pageSize);
 
 	UserRankingListVo findRanks(String userId, Integer pageNum, Integer pageSize);
+	
+	PageInfo<UserVo> findNearUsers(String userId ,Integer pageNum, Integer pageSize);
 }

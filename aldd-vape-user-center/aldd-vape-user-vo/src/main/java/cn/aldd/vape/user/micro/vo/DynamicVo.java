@@ -19,6 +19,10 @@ public class DynamicVo implements Serializable {
 	private String content;
 	@ApiModelProperty(value = "创建人")
 	private String createUserId;
+	@ApiModelProperty(value = "昵称")
+	private String nickName;
+	@ApiModelProperty(value = "头像")
+	private String headPortraitImg;
 	@ApiModelProperty(value = "创建时间")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private java.util.Date createTime;
@@ -102,6 +106,22 @@ public class DynamicVo implements Serializable {
 
 	public void setComments(List<DynamicCommentVo> comments) {
 		this.comments = comments;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getHeadPortraitImg() {
+		return headPortraitImg;
+	}
+
+	public void setHeadPortraitImg(String headPortraitImg) {
+		this.headPortraitImg = headPortraitImg;
 	}
 
 }

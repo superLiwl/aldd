@@ -108,6 +108,25 @@ public class UserServiceImpl implements UserService {
 		}
 		return result;
 	}
+	
+	@Override
+	public PageInfo<UserVo> findNearUsers(String userId ,Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		PageInfo<UserVo> result = new PageInfo<UserVo>(userDao.findNearUsers(userId));
+		if (pageNum > result.getPages()) {
+			result.setList(null);
+			result.setSize(0);
+			result.setPageNum(pageNum);
+		}
+		if(!Utils.isNullList(result.getList())){
+			for(UserVo vo : result.getList()){
+				if (!vo.getHeadPortraitImg().contains("http")) {
+					vo.setHeadPortraitImg(CommonConstants.IMG_URL + vo.getHeadPortraitImg());
+				}
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public UserRankingVo findMyRanking(String userId, Integer pageNum, Integer pageSize) {

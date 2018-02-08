@@ -20,6 +20,8 @@ public class UserVo implements Serializable {
 	private String longitude;
 	@ApiModelProperty(value = "纬度")
 	private String latitude;
+	@ApiModelProperty(value = "距离")
+	private String distance;
 	@ApiModelProperty(value = "年龄")
 	private String age;
 	@ApiModelProperty(value = "编号")
@@ -192,6 +194,14 @@ public class UserVo implements Serializable {
 
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+	}
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
 	}
 
 }

@@ -14,6 +14,8 @@ public interface UserDao {
 	UserVo findUserById(@Param("id") String id);
 
 	List<UserVo> findUserList(@Param("entity") UserVo userVo);
+	
+	List<UserVo> findNearUsers(@Param("userId") String userId);
 
 	List<UserRankingVo> findUserRankingList(@Param("start") String start, @Param("end") String end);
 

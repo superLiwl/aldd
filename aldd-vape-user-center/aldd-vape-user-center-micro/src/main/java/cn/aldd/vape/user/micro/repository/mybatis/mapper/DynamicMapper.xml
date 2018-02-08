@@ -44,6 +44,8 @@
 	    <result property="content" column="content"/>  
 	    <result property="createUserId" column="createUserId"/>  
 	    <result property="createTime" column="createTime"/>  
+	    <result property="nickName" column="nickName"/>  
+	    <result property="headPortraitImg" column="headPortraitImg"/>  
 	      
 	    <collection property="images" column="dynamic_id" ofType="cn.aldd.vape.user.micro.vo.DynamicImageVo">  
 	        <result property="id" column="imageId"/>
@@ -62,6 +64,8 @@
 			 record.address as address, 
 			 record.content as content, 
 			 record.create_user_id as createUserId, 
+			 u.nick_name as nickName,
+			 u.head_portrait_img as headPortraitImg,
 			 record.create_time as createTime,
 			 dyImage.id as imageId, 
 			 dyImage.dynamic_id as dynamicId, 
@@ -69,7 +73,8 @@
 			 dyImage.type as type,
 			 dyImage.create_time as imageCreateTime
 			FROM dynamic record 
-			LEFT JOIN dynamic_image dyImage ON record.id = dyImage.dynamic_id
+			LEFT JOIN dynamic_image dyImage ON record.id = dyImage.dynamic_id 
+			LEFT JOIN user u  on  u.id = record.create_user_id
 		]]>
 	</sql>
 

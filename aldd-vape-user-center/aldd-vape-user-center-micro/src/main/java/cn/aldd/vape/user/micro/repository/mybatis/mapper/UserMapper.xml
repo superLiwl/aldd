@@ -4,6 +4,40 @@
 
 <mapper namespace="cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao">
 	
+	<select id="findNearUsers" resultType="cn.aldd.vape.user.micro.vo.UserVo" parameterType="java.lang.String">
+		<![CDATA[
+		SELECT  
+    		record.id as id, 
+			record.open_id as openId, 
+			record.address as address,  
+			record.longitude as longitude, 
+			record.latitude as latitude, 
+			record.age as age, 
+			record.code as code, 
+			record.gender as gender, 
+			record.head_portrait_img as headPortraitImg, 
+			record.hobby as hobby, 
+			record.status as status, 
+			record.login_name as loginName, 
+			record.password as password, 
+			record.nick_name as nickName, 
+			record.ration as ration, 
+			record.skill as skill, 
+			record.create_time as createTime, 
+			record.update_time as updateTime, 
+    	ROUND( 
+        	6378.138 * 2 * ASIN(
+            SQRT(POW(SIN(((SELECT u1.latitude FROM user u1 WHERE u1.id =#{userId}) * PI()/180 - record.latitude * PI() / 180) / 2), 2) 
+					+ COS((SELECT u2.latitude FROM user u2 WHERE u2.id =#{userId}) * PI() / 180) * COS(record.latitude * PI() / 180) * POW(  
+                    SIN(((SELECT u3.longitude FROM user u3 WHERE u3.id =#{userId}) * PI() / 180 - record.longitude * PI() / 180 ) / 2  ),2)) ) 
+		    ) AS distance  
+		FROM  
+		user record
+		where record.id != #{userId}
+		ORDER BY distance ASC  
+		]]>
+	</select>
+	
 	<select id="login" resultType="cn.aldd.vape.user.micro.vo.UserVo" parameterType="java.lang.String">
 		<include refid="selectAllColumns" />
 		where record.login_name = #{loginName} and record.password = #{password}
