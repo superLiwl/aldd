@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import cn.aldd.vape.constants.CommonConstants;
 import cn.aldd.vape.user.micro.domain.User;
 import cn.aldd.vape.user.micro.repository.jpa.UserRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao;
@@ -27,11 +28,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User addUser(User user) {
-		user.setCreateTime(new Date());
-		user.setUpdateTime(new Date());
-		MD5 md5 = new MD5();
-		user.setPassword(md5.getMD5ofStr(user.getPassword()));
-		user = userRepository.save(user);
+		// 判断是否已经存在根据openid判断
+		UserVo userVo = findUserById(user.getOpenId());
+		if (null != userVo) {
+			user.setId(userVo.getId());
+			updateUser(user);
+		} else {
+			user.setCreateTime(new Date());
+			user.setUpdateTime(new Date());
+			MD5 md5 = new MD5();
+			user.setPassword(md5.getMD5ofStr(user.getPassword()));
+			user = userRepository.save(user);
+		}
+		if (!user.getHeadPortraitImg().contains("http")) {
+			user.setHeadPortraitImg(CommonConstants.IMG_URL + user.getHeadPortraitImg());
+		}
 		return user;
 	}
 
