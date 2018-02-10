@@ -34,6 +34,10 @@ public class DynamicVo implements Serializable {
 	private List<DynamicRewardVo> rewards;
 	@ApiModelProperty(value = "动态评论")
 	private List<DynamicCommentVo> comments;
+	@ApiModelProperty(value = "是否关注")
+	private Boolean isFollow;
+	@ApiModelProperty(value = "简介")
+	private String describe;
 
 	// setter and getter
 	public String getId() {
@@ -122,6 +126,22 @@ public class DynamicVo implements Serializable {
 
 	public void setHeadPortraitImg(String headPortraitImg) {
 		this.headPortraitImg = headPortraitImg;
+	}
+
+	public Boolean getIsFollow() {
+		return isFollow;
+	}
+
+	public void setIsFollow(Boolean isFollow) {
+		this.isFollow = isFollow;
+	}
+
+	public String getDescribe() {
+		return describe;
+	}
+
+	public void setDescribe(String describe) {
+		this.describe = describe;
 	}
 
 }

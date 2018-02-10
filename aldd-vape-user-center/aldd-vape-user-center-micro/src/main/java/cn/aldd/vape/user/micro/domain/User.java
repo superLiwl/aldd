@@ -100,6 +100,11 @@ public class User implements Serializable {
 	@Column(nullable = true, length = 255, name = "skill")
 	private String skill;
 	/**
+	 * 简介
+	 */
+	@Column(nullable = true, length = 255, name = "introduction")
+	private String introduction;
+	/**
 	 * 创建时间
 	 */
 	@Column(nullable = true, name = "create_time")
@@ -253,6 +258,14 @@ public class User implements Serializable {
 
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 
 }

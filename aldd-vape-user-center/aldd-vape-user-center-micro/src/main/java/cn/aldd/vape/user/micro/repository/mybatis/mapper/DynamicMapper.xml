@@ -9,7 +9,8 @@
 	</select>
 	
 	<select id="findDynamicInfosById" resultType="cn.aldd.vape.user.micro.vo.DynamicInfosVo" parameterType="java.lang.String">
-	SELECT d.*,u.nick_name AS nickName ,u.head_portrait_img AS headPortraitImg FROM (	
+		<![CDATA[
+		SELECT d.*,u.nick_name AS nickName ,u.head_portrait_img AS headPortraitImg FROM (	
 			(SELECT r.id as businessId,r.dynamic_id AS dynamicId ,r.create_user_id AS createUserId ,r.create_time AS createTime,r.reward_num AS businessData ,
 				'' as commentId , '' as createDyUser , '' as createDyUserImg , 'reward' as type 
 				FROM dynamic_reward r WHERE r.dynamic_id = #{id} ORDER BY r.create_time ASC)
@@ -19,12 +20,22 @@
 				FROM dynamic_fabulous f WHERE f.dynamic_id = #{id} ORDER BY f.create_time ASC)
 		UNION 
 			(SELECT c.id as businessId,c.dynamic_id AS dynamicId ,c.create_user_id AS createUserId ,c.create_time AS createTime,c.comment AS businessData ,
-			c.comment_id AS commentId,uuu.nick_name AS createDyUser , uuu.head_portrait_img AS createDyUserImg , 'comment' as type 
-				FROM dynamic_comment c 
-				LEFT JOIN dynamic ddd ON c.dynamic_id = ddd.id 
-				LEFT JOIN user uuu ON uuu.id = ddd.create_user_id 
-				WHERE c.dynamic_id = #{id} ORDER BY c.create_time DESC)
-	) AS d LEFT JOIN user u on u.id = d.createUserId
+			c.comment_id AS commentId, 
+			CASE c.comment_id WHEN NOT NULL && LENGTH(trim(c.comment_id))>0 THEN  
+			(SELECT (select u3.nick_name FROM user u3 WHERE u3.id = d3.create_user_id) FROM dynamic d3 WHERE d3.id = c.dynamic_id)
+			ELSE 
+			(SELECT (select u4.nick_name FROM user u4 WHERE u4.id = d4.create_user_id) FROM dynamic_comment d4 WHERE d4.id = c.comment_id) END as createDyUser,
+			CASE c.comment_id WHEN NOT NULL && LENGTH(trim(c.comment_id))>0 THEN 
+			(SELECT (select u2.head_portrait_img FROM user u2 WHERE u2.id = d1.create_user_id) FROM dynamic d1 WHERE d1.id = c.dynamic_id)
+			ELSE 
+			(SELECT (select u1.head_portrait_img FROM user u1 WHERE u1.id = dc.create_user_id) FROM dynamic_comment dc WHERE dc.id = c.comment_id) END as createDyUserImg , 
+			'comment' as type 
+			FROM dynamic_comment c 
+			LEFT JOIN dynamic ddd ON c.dynamic_id = ddd.id 
+			LEFT JOIN user uuu ON uuu.id = ddd.create_user_id 
+			WHERE c.dynamic_id = #{id} ORDER BY c.create_time ASC)
+		) AS d LEFT JOIN user u on u.id = d.createUserId
+		]]>
 	</select>
 	
 	<select id="findDynamicById" resultMap="dynamicResult" parameterType="java.lang.String">

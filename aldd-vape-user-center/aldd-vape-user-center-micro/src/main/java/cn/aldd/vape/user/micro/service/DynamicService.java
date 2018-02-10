@@ -15,4 +15,6 @@ public interface DynamicService {
 
 	void deleteDynamicById(String id);
 
+	DynamicVo findDynamicByIdAndUserId(String dynamicId, String userId);
+
 }

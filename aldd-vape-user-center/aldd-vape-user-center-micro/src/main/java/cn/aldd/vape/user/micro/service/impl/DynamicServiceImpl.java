@@ -20,13 +20,17 @@ import cn.aldd.vape.user.micro.repository.jpa.DynamicRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.DynamicDao;
 import cn.aldd.vape.user.micro.service.DynamicImageService;
 import cn.aldd.vape.user.micro.service.DynamicService;
+import cn.aldd.vape.user.micro.service.UserFollowService;
 import cn.aldd.vape.user.micro.service.UserRewardCountService;
+import cn.aldd.vape.user.micro.service.UserService;
 import cn.aldd.vape.user.micro.vo.DynamicCommentVo;
 import cn.aldd.vape.user.micro.vo.DynamicFabulousVo;
 import cn.aldd.vape.user.micro.vo.DynamicImageVo;
 import cn.aldd.vape.user.micro.vo.DynamicInfosVo;
 import cn.aldd.vape.user.micro.vo.DynamicRewardVo;
 import cn.aldd.vape.user.micro.vo.DynamicVo;
+import cn.aldd.vape.user.micro.vo.UserFollowVo;
+import cn.aldd.vape.user.micro.vo.UserVo;
 import cn.aldd.vape.util.Utils;
 
 @Service("dynamicService")
@@ -40,6 +44,10 @@ public class DynamicServiceImpl implements DynamicService {
 	private DynamicImageService imageService;
 	@Autowired
 	private UserRewardCountService userRewardCountService;
+	@Autowired
+	private UserFollowService userFollowService;
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public Dynamic addDynamic(Dynamic dynamic) {
@@ -79,6 +87,30 @@ public class DynamicServiceImpl implements DynamicService {
 	}
 
 	@Override
+	public DynamicVo findDynamicByIdAndUserId(String dynamicId, String userId) {
+		// 查询动态信息
+		DynamicVo result = dynamicDao.findDynamicById(dynamicId);
+		this.getDynamicInfos(result);
+		// 查询登陆人是否关注发表动态的人
+		UserFollowVo userFollowVo = new UserFollowVo();
+		//查询关注的用户的信息
+		UserVo user = userService.findUserById(result.getCreateUserId());
+		result.setDescribe(user.getIntroduction());
+		userFollowVo.setUserId(result.getCreateUserId());
+		userFollowVo.setCreateUserId(userId);
+		PageInfo<UserFollowVo> follow = userFollowService.findUserFollowList(userFollowVo, 1, 1);
+		if (null != follow && !Utils.isNullList(follow.getList())) {
+			// 已经关注
+			result.setIsFollow(true);
+		} else {
+			// 未关注
+			result.setIsFollow(false);
+		}
+
+		return result;
+	}
+
+	@Override
 	public PageInfo<DynamicVo> findDynamicList(DynamicVo dynamicVo, Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		PageInfo<DynamicVo> result = new PageInfo<DynamicVo>(dynamicDao.findDynamicList(dynamicVo));
@@ -97,61 +129,63 @@ public class DynamicServiceImpl implements DynamicService {
 	}
 
 	private void getDynamicInfos(DynamicVo dy) {
-		if (null!= dy.getHeadPortraitImg()&& !dy.getHeadPortraitImg().contains("http")) {
-			dy.setHeadPortraitImg(CommonConstants.IMG_URL + dy.getHeadPortraitImg());
-		}
-		if (!Utils.isNullList(dy.getImages())) {
-			for (DynamicImageVo img : dy.getImages()) {
-				img.setUrl(CommonConstants.IMG_URL + img.getUrl());
+		if (null != dy) {
+			if (null != dy.getHeadPortraitImg() && !dy.getHeadPortraitImg().contains("http")) {
+				dy.setHeadPortraitImg(CommonConstants.IMG_URL + dy.getHeadPortraitImg());
 			}
-		}
-		List<DynamicInfosVo> infoList;
-		List<DynamicFabulousVo> fabulous = new ArrayList<>();
-		List<DynamicRewardVo> rewards = new ArrayList<>();
-		List<DynamicCommentVo> comments = new ArrayList<>();
-		DynamicFabulousVo fabulou;
-		DynamicRewardVo reward;
-		DynamicCommentVo comment;
-		/**
-		 * 查询评论 查询点赞 查询打赏
-		 */
-		infoList = dynamicDao.findDynamicInfosById(dy.getId());
-		if (!Utils.isNullList(infoList)) {
-			for (DynamicInfosVo info : infoList) {
-				if (DynamicTypeEnum.FABULOUS.getKey().equals(info.getType())) {
-					fabulou = new DynamicFabulousVo();
-					fabulou.setId(info.getBusinessId());
-					fabulou.setDynamicId(info.getDynamicId());
-					fabulou.setCreateUserId(info.getCreateUserId());
-					fabulou.setCreateTime(info.getCreateTime());
-					fabulou.setNickName(info.getNickName());
-					fabulous.add(fabulou);
-				} else if (DynamicTypeEnum.COMMENT.getKey().equals(info.getType())) {
-					comment = new DynamicCommentVo();
-					comment.setId(info.getBusinessId());
-					comment.setCommentId(info.getCommentId());
-					comment.setDynamicId(info.getDynamicId());
-					comment.setCreateUserId(info.getCreateUserId());
-					comment.setCreateTime(info.getCreateTime());
-					comment.setComment(info.getBusinessData());
-					comment.setNickName(info.getNickName());
-					comment.setCreateDyUser(info.getCreateDyUser());
-					comment.setCreateDyUserImg(info.getCreateDyUserImg());
-					comments.add(comment);
-				} else if (DynamicTypeEnum.REWARD.getKey().equals(info.getType())) {
-					reward = new DynamicRewardVo();
-					reward.setId(info.getBusinessId());
-					reward.setDynamicId(info.getDynamicId());
-					reward.setCreateUserId(info.getCreateUserId());
-					reward.setNickName(info.getNickName());
-					reward.setCreateTime(info.getCreateTime());
-					reward.setRewardNum(info.getBusinessData());
-					rewards.add(reward);
+			if (!Utils.isNullList(dy.getImages())) {
+				for (DynamicImageVo img : dy.getImages()) {
+					img.setUrl(CommonConstants.IMG_URL + img.getUrl());
 				}
 			}
-			dy.setRewards(rewards);
-			dy.setFabulous(fabulous);
-			dy.setComments(comments);
+			List<DynamicInfosVo> infoList;
+			List<DynamicFabulousVo> fabulous = new ArrayList<>();
+			List<DynamicRewardVo> rewards = new ArrayList<>();
+			List<DynamicCommentVo> comments = new ArrayList<>();
+			DynamicFabulousVo fabulou;
+			DynamicRewardVo reward;
+			DynamicCommentVo comment;
+			/**
+			 * 查询评论 查询点赞 查询打赏
+			 */
+			infoList = dynamicDao.findDynamicInfosById(dy.getId());
+			if (!Utils.isNullList(infoList)) {
+				for (DynamicInfosVo info : infoList) {
+					if (DynamicTypeEnum.FABULOUS.getKey().equals(info.getType())) {
+						fabulou = new DynamicFabulousVo();
+						fabulou.setId(info.getBusinessId());
+						fabulou.setDynamicId(info.getDynamicId());
+						fabulou.setCreateUserId(info.getCreateUserId());
+						fabulou.setCreateTime(info.getCreateTime());
+						fabulou.setNickName(info.getNickName());
+						fabulous.add(fabulou);
+					} else if (DynamicTypeEnum.COMMENT.getKey().equals(info.getType())) {
+						comment = new DynamicCommentVo();
+						comment.setId(info.getBusinessId());
+						comment.setCommentId(info.getCommentId());
+						comment.setDynamicId(info.getDynamicId());
+						comment.setCreateUserId(info.getCreateUserId());
+						comment.setCreateTime(info.getCreateTime());
+						comment.setComment(info.getBusinessData());
+						comment.setNickName(info.getNickName());
+						comment.setCreateDyUser(info.getCreateDyUser());
+						comment.setCreateDyUserImg(info.getCreateDyUserImg());
+						comments.add(comment);
+					} else if (DynamicTypeEnum.REWARD.getKey().equals(info.getType())) {
+						reward = new DynamicRewardVo();
+						reward.setId(info.getBusinessId());
+						reward.setDynamicId(info.getDynamicId());
+						reward.setCreateUserId(info.getCreateUserId());
+						reward.setNickName(info.getNickName());
+						reward.setCreateTime(info.getCreateTime());
+						reward.setRewardNum(info.getBusinessData());
+						rewards.add(reward);
+					}
+				}
+				dy.setRewards(rewards);
+				dy.setFabulous(fabulous);
+				dy.setComments(comments);
+			}
 		}
 	}
 

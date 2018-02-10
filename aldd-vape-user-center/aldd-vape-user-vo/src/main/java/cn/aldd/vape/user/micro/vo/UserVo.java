@@ -44,6 +44,8 @@ public class UserVo implements Serializable {
 	private String ration;
 	@ApiModelProperty(value = "技能")
 	private String skill;
+	@ApiModelProperty(value = "简介")
+	private String introduction;
 	@ApiModelProperty(value = "创建时间")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private java.util.Date createTime;
@@ -202,6 +204,14 @@ public class UserVo implements Serializable {
 
 	public void setDistance(String distance) {
 		this.distance = distance;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 
 }

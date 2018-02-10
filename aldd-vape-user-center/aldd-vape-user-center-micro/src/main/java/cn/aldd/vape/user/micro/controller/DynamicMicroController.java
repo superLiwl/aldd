@@ -28,6 +28,11 @@ public class DynamicMicroController {
 		return DataMessage.createSuccessMsg(dynamicService.findDynamicById(id), "查询成功", "");
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/{dynamicId}/{userId}")
+	public DataMessage findDynamicByIdAndUserId(@PathVariable("dynamicId") String dynamicId,@PathVariable("userId") String userId) {
+		return DataMessage.createSuccessMsg(dynamicService.findDynamicByIdAndUserId(dynamicId, userId), "查询成功", "");
+	}
+
 	@RequestMapping(method = RequestMethod.POST, value = "/{pageNum}/{pageSize}")
 	public DataMessage findDynamicList(@RequestBody DynamicVo dynamicVo, @PathVariable("pageNum") Integer pageNum,
 			@PathVariable("pageSize") Integer pageSize) {
