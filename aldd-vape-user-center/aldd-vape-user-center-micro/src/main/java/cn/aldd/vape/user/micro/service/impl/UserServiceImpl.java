@@ -76,11 +76,11 @@ public class UserServiceImpl implements UserService {
 		}
 		return result;
 	}
-	
+
 	@Override
-	public UserRankingListVo findRanks(String userId,Integer pageNum, Integer pageSize){
+	public UserRankingListVo findRanks(String userId, Integer pageNum, Integer pageSize) {
 		PageInfo<UserRankingVo> ranks = findUserRankingList(pageNum, pageSize);
-		UserRankingVo myRank= findMyRanking(userId, pageNum, pageSize);
+		UserRankingVo myRank = findMyRanking(userId, pageNum, pageSize);
 		UserRankingListVo result = new UserRankingListVo();
 		result.setUserRanks(ranks.getList());
 		result.setMyRanks(myRank);
@@ -99,8 +99,8 @@ public class UserServiceImpl implements UserService {
 			result.setSize(0);
 			result.setPageNum(pageNum);
 		}
-		if(!Utils.isNullList(result.getList())){
-			for(UserRankingVo vo : result.getList()){
+		if (!Utils.isNullList(result.getList())) {
+			for (UserRankingVo vo : result.getList()) {
 				if (!vo.getHeadPortraitImg().contains("http")) {
 					vo.setHeadPortraitImg(CommonConstants.IMG_URL + vo.getHeadPortraitImg());
 				}
@@ -108,9 +108,9 @@ public class UserServiceImpl implements UserService {
 		}
 		return result;
 	}
-	
+
 	@Override
-	public PageInfo<UserVo> findNearUsers(String userId ,Integer pageNum, Integer pageSize) {
+	public PageInfo<UserVo> findNearUsers(String userId, Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		PageInfo<UserVo> result = new PageInfo<UserVo>(userDao.findNearUsers(userId));
 		if (pageNum > result.getPages()) {
@@ -118,8 +118,8 @@ public class UserServiceImpl implements UserService {
 			result.setSize(0);
 			result.setPageNum(pageNum);
 		}
-		if(!Utils.isNullList(result.getList())){
-			for(UserVo vo : result.getList()){
+		if (!Utils.isNullList(result.getList())) {
+			for (UserVo vo : result.getList()) {
 				if (!vo.getHeadPortraitImg().contains("http")) {
 					vo.setHeadPortraitImg(CommonConstants.IMG_URL + vo.getHeadPortraitImg());
 				}
@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
 	public UserRankingVo findMyRanking(String userId, Integer pageNum, Integer pageSize) {
 		String[] dateArry = DateUtils.getStartAndEndTime();
 		UserRankingVo vo = userDao.findMyRanking(userId, dateArry[0], dateArry[1]);
-		if (null!=vo && !vo.getHeadPortraitImg().contains("http")) {
+		if (null != vo && !vo.getHeadPortraitImg().contains("http")) {
 			vo.setHeadPortraitImg(CommonConstants.IMG_URL + vo.getHeadPortraitImg());
 		}
 		return vo;
@@ -147,6 +147,13 @@ public class UserServiceImpl implements UserService {
 	public UserVo login(String loginName, String password) {
 		MD5 md5 = new MD5();
 		return userDao.login(loginName, md5.getMD5ofStr(password));
+	}
+
+	@Override
+	public UserVo wxLogin(String id, String longitude, String latitude) {
+		//更新经纬度
+		
+		return findUserById(id);
 	}
 
 }

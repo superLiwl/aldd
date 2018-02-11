@@ -19,13 +19,15 @@ public interface UserService {
 
 	void deleteUserById(String id);
 
-	UserVo login(String loginName, String password);
-
 	PageInfo<UserRankingVo> findUserRankingList(Integer pageNum, Integer pageSize);
 
 	UserRankingVo findMyRanking(String userId, Integer pageNum, Integer pageSize);
 
 	UserRankingListVo findRanks(String userId, Integer pageNum, Integer pageSize);
-	
-	PageInfo<UserVo> findNearUsers(String userId ,Integer pageNum, Integer pageSize);
+
+	PageInfo<UserVo> findNearUsers(String userId, Integer pageNum, Integer pageSize);
+
+	UserVo login(String loginName, String password);
+
+	UserVo wxLogin(String id, String longitude, String latitude);
 }
