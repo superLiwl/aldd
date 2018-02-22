@@ -6,6 +6,7 @@ import cn.aldd.vape.user.micro.domain.User;
 import cn.aldd.vape.user.micro.vo.UserRankingListVo;
 import cn.aldd.vape.user.micro.vo.UserRankingVo;
 import cn.aldd.vape.user.micro.vo.UserVo;
+import cn.aldd.vape.user.micro.vo.WxUserLoginVo;
 
 public interface UserService {
 
@@ -29,5 +30,5 @@ public interface UserService {
 
 	UserVo login(String loginName, String password);
 
-	UserVo wxLogin(String id, String longitude, String latitude);
+	UserVo wxLogin(WxUserLoginVo wxUserLoginVo);
 }

@@ -11,6 +11,7 @@ import cn.aldd.vape.common.DataMessage;
 import cn.aldd.vape.user.micro.domain.User;
 import cn.aldd.vape.user.micro.service.UserService;
 import cn.aldd.vape.user.micro.vo.UserVo;
+import cn.aldd.vape.user.micro.vo.WxUserLoginVo;
 
 @RestController
 @RequestMapping(value = "/user/micro")
@@ -56,6 +57,15 @@ public class UserMicroController {
 		UserVo user = userService.login(loginName, password);
 		if (null == user) {
 			return DataMessage.createSuccessMsg(user, "用户名或密码错误", "");
+		}
+		return DataMessage.createSuccessMsg(user, "登陆成功", "");
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "wxLogin")
+	public DataMessage wxLogin(@RequestBody WxUserLoginVo wxUserLoginVo) {
+		UserVo user = userService.wxLogin(wxUserLoginVo);
+		if (null == user) {
+			return DataMessage.createSuccessMsg(null, "无用户信息", "");
 		}
 		return DataMessage.createSuccessMsg(user, "登陆成功", "");
 	}

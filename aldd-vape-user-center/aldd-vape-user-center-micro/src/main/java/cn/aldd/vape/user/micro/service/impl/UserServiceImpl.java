@@ -2,13 +2,17 @@ package cn.aldd.vape.user.micro.service.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.aldd.vape.constants.CommonConstants;
+import cn.aldd.vape.enums.UserStatusEnum;
 import cn.aldd.vape.user.micro.domain.User;
 import cn.aldd.vape.user.micro.repository.jpa.UserRepository;
 import cn.aldd.vape.user.micro.repository.mybatis.dao.UserDao;
@@ -16,6 +20,7 @@ import cn.aldd.vape.user.micro.service.UserService;
 import cn.aldd.vape.user.micro.vo.UserRankingListVo;
 import cn.aldd.vape.user.micro.vo.UserRankingVo;
 import cn.aldd.vape.user.micro.vo.UserVo;
+import cn.aldd.vape.user.micro.vo.WxUserLoginVo;
 import cn.aldd.vape.util.DateUtils;
 import cn.aldd.vape.util.MD5;
 import cn.aldd.vape.util.Utils;
@@ -38,11 +43,14 @@ public class UserServiceImpl implements UserService {
 		} else {
 			user.setCreateTime(new Date());
 			user.setUpdateTime(new Date());
-			MD5 md5 = new MD5();
-			user.setPassword(md5.getMD5ofStr(user.getPassword()));
+			if (StringUtils.isNotBlank(user.getPassword())) {
+				MD5 md5 = new MD5();
+				user.setPassword(md5.getMD5ofStr(user.getPassword()));
+			}
+			user.setStatus(UserStatusEnum.NORMAL.getKey());
 			user = userRepository.save(user);
 		}
-		if (!user.getHeadPortraitImg().contains("http")) {
+		if (StringUtils.isNotBlank(user.getHeadPortraitImg()) && !user.getHeadPortraitImg().contains("http")) {
 			user.setHeadPortraitImg(CommonConstants.IMG_URL + user.getHeadPortraitImg());
 		}
 		return user;
@@ -150,10 +158,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVo wxLogin(String id, String longitude, String latitude) {
-		//更新经纬度
-		
-		return findUserById(id);
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public UserVo wxLogin(WxUserLoginVo wxUserLoginVo) {
+		UserVo userVo = findUserById(wxUserLoginVo.getOpenId());
+		if (null != userVo) {
+			// 更新经纬度及地址信息
+			userRepository.updateAddress(wxUserLoginVo.getLongitude(), wxUserLoginVo.getLatitude(),
+					wxUserLoginVo.getOpenId());
+			userVo.setLongitude(wxUserLoginVo.getLongitude());
+			userVo.setLatitude(wxUserLoginVo.getLatitude());
+		} else {
+			// 新增用户
+			User user = new User();
+			user.setAddress(wxUserLoginVo.getAddress());
+			user.setLongitude(wxUserLoginVo.getLongitude());
+			user.setLatitude(wxUserLoginVo.getLatitude());
+			user.setNickName(wxUserLoginVo.getNickName());
+			user.setOpenId(wxUserLoginVo.getOpenId());
+			user.setHeadPortraitImg(wxUserLoginVo.getHeadPortraitImg());
+			addUser(user);
+			userVo = findUserById(user.getId());
+		}
+		return userVo;
 	}
 
 }
